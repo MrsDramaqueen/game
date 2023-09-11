@@ -8,6 +8,7 @@ use \App\Models\Player;
 use App\Services\Game\GameService;
 use App\Services\Game\LogService;
 use App\Services\Mediator\MoveMediator;
+use App\Services\Strategy\LowHPStrategy;
 
 class PlayerService
 {
@@ -29,9 +30,16 @@ class PlayerService
     public function action($command): string
     {
         GameService::index();
-        $moveMediator = new MoveMediator(\App\Entity\Player\Player::getInstance());
+        $player = \App\Entity\Player\Player::getInstance();
+        $moveMediator = new MoveMediator($player);
         //TODO
         $newCommand = ListObstacles::getInstance()->getPositions($moveMediator, $command);
+
+        //TODO Использовать стратегию с посредником
+        if ($this->getLowHP($player->getHp()) <= 10) {
+            $player->setDamage((new LowHPStrategy())->doDamage($player->getDamage()));
+        }
+
 
         $this->move($newCommand);
         $this->saveNewStatePlayer();
@@ -67,5 +75,10 @@ class PlayerService
             ->setPositionWidth($player->getPositionWidth())
             ->setPositionHeight($player->getPositionHeight())
             ->save();
+    }
+
+    private function getLowHP($hp)
+    {
+        return $hp * 0.3;
     }
 }

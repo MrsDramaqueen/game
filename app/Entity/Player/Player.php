@@ -3,6 +3,7 @@
 namespace App\Entity\Player;
 
 use App\Services\Mediator\Mediator;
+use App\Services\Strategy\Strategy;
 use App\Traits\Singleton;
 
 class Player
@@ -25,14 +26,22 @@ class Player
 
     protected $mediator;
 
-    public function __construct(Mediator $mediator = null)
+    protected $strategy;
+
+    public function __construct(Mediator $mediator = null, Strategy $strategy = null)
     {
         $this->mediator = $mediator;
+        $this->strategy = $strategy;
     }
 
     public function setMediator(Mediator $mediator): void
     {
         $this->mediator = $mediator;
+    }
+
+    public function setStrategy(Strategy $strategy): void
+    {
+        $this->strategy = $strategy;
     }
 
     /**
@@ -191,5 +200,11 @@ class Player
     public function right(): void
     {
         $this->setPositionWidth($this->getPositionWidth() + 1);
+    }
+
+    public function doActionStrategy()
+    {
+        $this->strategy->doDamage($this->getDamage());
+        //$this->strategy->doHill();
     }
 }
