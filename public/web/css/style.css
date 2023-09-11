@@ -1,0 +1,37 @@
+body {
+    background: #c4e3f3;
+}
+
+.menu {
+    padding-top: 30%;
+}
+.player-information {
+    display: flex;
+    background: #E0FFFF;
+}
+
+.player-info {
+    padding-left: 20px;
+}
+
+.board {
+    background: #FFFACD;
+}
+
+.player {
+    background: #1a202c;
+}
+
+.button-control {
+    width: 80px;
+}
+
+.board-container {
+    display: flex;
+}
+
+.board-elem {
+    width: 100px;
+    height: 60px;
+    text-align: center;
+}
