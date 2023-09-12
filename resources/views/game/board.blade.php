@@ -3,6 +3,7 @@
     <p class="player-info">Damage: {{$player->getDamage()}}</p>
     <p class="player-info">Level: {{$player->getLevel()}}</p>
     <p class="player-info">Exp: {{$player->getExp()}}</p>
+    <p class="player-info">Mana: {{$player->getMana()}}</p>
 </div>
 
 <div class="row">
@@ -66,6 +67,7 @@
         <player-info class="player-info">HP: {{$monster->getHp()}}</player-info                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              >
         <p class="player-info">Damage: {{$monster->getDamage()}}</p>
         <p class="player-info">Fraction: {{$monster->getType()}}</p>
+        <p class="player-info">Mana: {{$monster->getMana()}}</p>
     </div>
 @endforeach
 

@@ -4,7 +4,6 @@ namespace App\Services\Strategy;
 
 class FullHPStrategy implements Strategy
 {
-
     public function doDamage($data)
     {
         return $data * 2;

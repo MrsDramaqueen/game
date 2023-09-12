@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $damage
  * @property int $position_width
  * @property int $position_height
+ * @property int $mana
  */
 class Monster extends Model
 {
@@ -54,6 +55,24 @@ class Monster extends Model
     public function setType(string $type): Monster
     {
         $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMana(): int
+    {
+        return $this->mana;
+    }
+
+    /**
+     * @param int $mana
+     * @return Monster
+     */
+    public function setMana(int $mana): Monster
+    {
+        $this->mana = $mana;
         return $this;
     }
 

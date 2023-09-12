@@ -16,6 +16,7 @@ class MonsterService
             ->setDamage($monster->getDamage())
             ->setType($monster->getType())
             ->setPositionWidth($monster->getPositionWidth())
-            ->setPositionHeight($monster->getPositionWidth());
+            ->setPositionHeight($monster->getPositionHeight())
+            ->setMana($monster->getMana());
     }
 }

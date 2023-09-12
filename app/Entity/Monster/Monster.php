@@ -14,6 +14,26 @@ class Monster
 
     protected int $positionHeight;
 
+    protected int $mana;
+
+    /**
+     * @return int
+     */
+    public function getMana(): int
+    {
+        return $this->mana;
+    }
+
+    /**
+     * @param int $mana
+     * @return Monster
+     */
+    public function setMana(int $mana): Monster
+    {
+        $this->mana = $mana;
+        return $this;
+    }
+
     /**
      * @return int
      */

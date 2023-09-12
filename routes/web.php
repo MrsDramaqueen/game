@@ -20,3 +20,5 @@ Route::get('/', [GameController::class, 'menu']);
 Route::get('/game', [GameController::class, 'start']);
 
 Route::post('/move', [PlayerController::class, 'move']);
+
+Route::post('/battle', [PlayerController::class, 'battle']);

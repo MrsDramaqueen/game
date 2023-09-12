@@ -40,6 +40,16 @@ class Action {
         return ajax(url ,method, data, elem_class);
     }
 
+    battle() {
+        let url = '/battle';
+        let method = "post";
+        let data = {
+            "action": this.event_name,
+        };
+        let elem_class = ".game-info";
+        return ajax(url ,method, data, elem_class);
+    }
+
 
     onClick(event) {
         let action = event.target.dataset.action;

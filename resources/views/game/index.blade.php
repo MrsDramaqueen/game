@@ -17,7 +17,9 @@
                 </button>
                 <button data-action="move" name="down" class="btn btn-primary button-control" type="button">Вниз
                 </button>
-                <button disabled data-action="battle" name="hit" class="btn btn-danger button-control" type="button">Удар
+                <button data-action="battle" name="hit" class="btn btn-danger button-control" type="button">Удар
+                </button>
+                <button data-action="battle" name="hill" class="btn btn-success button-control" type="button">Хилл
                 </button>
             </div>
         </div>

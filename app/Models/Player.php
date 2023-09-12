@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $state
  * @property int $position_width
  * @property int $position_height
+ * @property int $mana
  */
 class Player extends Model
 {
@@ -30,6 +31,9 @@ class Player extends Model
     const WIDTH = 1;
 
     const HEIGHT = 1;
+    const MAX_MANA = 50;
+
+    const MIN_MANA = 0;
 
     /**
      * @return int
@@ -73,6 +77,24 @@ class Player extends Model
     public function getLevel(): int
     {
         return $this->level;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMana(): int
+    {
+        return $this->mana;
+    }
+
+    /**
+     * @param int $mana
+     * @return Player
+     */
+    public function setMana(int $mana): Player
+    {
+        $this->mana = $mana;
+        return $this;
     }
 
     /**

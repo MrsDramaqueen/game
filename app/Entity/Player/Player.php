@@ -2,6 +2,7 @@
 
 namespace App\Entity\Player;
 
+use App\Services\Game\LogService;
 use App\Services\Mediator\Mediator;
 use App\Services\Strategy\Strategy;
 use App\Traits\Singleton;
@@ -24,6 +25,8 @@ class Player
 
     protected int $positionHeight;
 
+    protected int $mana;
+
     protected $mediator;
 
     protected $strategy;
@@ -42,6 +45,24 @@ class Player
     public function setStrategy(Strategy $strategy): void
     {
         $this->strategy = $strategy;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMana(): int
+    {
+        return $this->mana;
+    }
+
+    /**
+     * @param int $mana
+     * @return Player
+     */
+    public function setMana(int $mana): Player
+    {
+        $this->mana = $mana;
+        return $this;
     }
 
     /**
@@ -206,5 +227,29 @@ class Player
     {
         $this->strategy->doDamage($this->getDamage());
         //$this->strategy->doHill();
+    }
+
+    public function hill()
+    {
+        //TODO: МБ Сделать даективацию кнопки если нет маны
+        if ($this->getHp() < \App\Models\Player::HP && $this->getMana() > 0) {
+            $this->setHp($this->getHp() + 10);
+            $this->setMana($this->getMana() - 10);
+        } else {
+            LogService::log('Недостаточно маны или вы восполнили здоровье на максимум');
+        }
+    }
+
+    public function hit()
+    {
+        return $this->getDamage();
+    }
+
+    public function manaRecovery(): void
+    {
+        if ($this->getMana() < \App\Models\Player::MAX_MANA) {
+            $this->setMana($this->getMana() + 10);
+            LogService::log('Восстановление маны');
+        }
     }
 }

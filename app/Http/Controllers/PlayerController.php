@@ -15,7 +15,7 @@ class PlayerController extends Controller
      */
     public function move(MoveRequest $request, PlayerService $service): string
     {
-        return $service->action($request->getAction());
+        return $service->action(__FUNCTION__, $request->getAction());
     }
 
     public function hill()
@@ -23,8 +23,8 @@ class PlayerController extends Controller
 
     }
 
-    public function hit()
+    public function battle(MoveRequest $request, PlayerService $service)
     {
-
+        return $service->action(__FUNCTION__, $request->getAction());
     }
 }
