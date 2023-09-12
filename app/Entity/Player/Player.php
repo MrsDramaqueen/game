@@ -233,7 +233,7 @@ class Player
     {
         //TODO: МБ Сделать даективацию кнопки если нет маны
         if ($this->getHp() < \App\Models\Player::HP && $this->getMana() > 0) {
-            $this->setHp($this->getHp() + 10);
+            $this->setHp(min($this->getHp() + 10, 100));
             $this->setMana($this->getMana() - 10);
         } else {
             LogService::log('Недостаточно маны или вы восполнили здоровье на максимум');
@@ -248,7 +248,7 @@ class Player
     public function manaRecovery(): void
     {
         if ($this->getMana() < \App\Models\Player::MAX_MANA) {
-            $this->setMana($this->getMana() + 10);
+            $this->setMana($this->getMana() + 5);
             LogService::log('Восстановление маны');
         }
     }

@@ -24,6 +24,10 @@ class Monster extends Model
 
     const CIRCLE_WITH_SWORD_TYPE = 'circle';
 
+    const HILL_COMMAND = 'hill';
+
+    const HIT_COMMAND = 'hit';
+
     /**
      * @return int
      */

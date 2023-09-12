@@ -46,7 +46,11 @@ class PlayerService
         $this->{$action}($newCommand);
         $this->saveNewStatePlayer();
         $this->saveNewStateMonsters();
-        return GameController::getViewBoard();
+        if ($player->getHp() == 0) {
+            return GameController::getViewGameOver();
+        } else {
+            return GameController::getViewBoard();
+        }
     }
 
     /**
@@ -64,6 +68,7 @@ class PlayerService
     }
 
     //TODO: Сделать для монстров паттерн состояние, в зависимости от которого они выбирают команду или стратегию
+    // по состоянию с помощью посредника выбирается стратегия, а в стратегии - команда
     protected function battle($command): void
     {
         LogService::log("Игрок задействовал $command");
@@ -79,6 +84,7 @@ class PlayerService
         $player = \App\Entity\Player\Player::getInstance();
         $monsters = \App\Entity\Monster\ListMonsters::getInstance()->getMonsters();
 
+        //TODO: Подумать над логикой выбора противника, если под условие подойдет больше 1-го + переработать условие
         foreach ($monsters as $monster) {
             if (abs($monster->getPositionHeight() - $player->getPositionHeight()) == 1
                 && abs($monster->getPositionWidth() - $player->getPositionWidth()) == 1) {

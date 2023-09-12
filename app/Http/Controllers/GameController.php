@@ -34,6 +34,11 @@ class GameController extends Controller
         ]);
     }
 
+    public static function getViewGameOver()
+    {
+        return \view('gameOver');
+    }
+
     /**
      * @return string
      */

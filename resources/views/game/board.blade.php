@@ -29,9 +29,9 @@
                                     @php
                                         $class = 'monster';
                                         if ($monster->getType() == \App\Models\Monster::GOBLIN_TYPE) {
-                                            $inner = url('/web/image/goblin.png');
+                                            $inner = $monster->getHp() != 0 ? url('/web/image/goblin.png') : url('/web/image/goblinIsDead.png');
                                         } else {
-                                            $inner = url('/web/image/circle.png');
+                                            $inner = $monster->getHp() != 0 ? url('/web/image/circle.png') : url('/web/image/circleIsDead.png');
                                          }
                                     @endphp
                                 @endif

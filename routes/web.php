@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\MonsterController;
 use App\Http\Controllers\PlayerController;
 use Illuminate\Support\Facades\Route;
 
