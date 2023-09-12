@@ -10,6 +10,7 @@ use \App\Models\Player;
 use App\Services\Game\GameService;
 use App\Services\Game\LogService;
 use App\Services\Mediator\MoveMediator;
+use App\Services\Monster\MonsterService;
 use App\Services\Strategy\LowHPStrategy;
 //TODO: Навести порядок
 class PlayerService
@@ -44,6 +45,9 @@ class PlayerService
         }*/
 
         $this->{$action}($newCommand);
+
+        MonsterService::action($action, $command);
+
         $this->saveNewStatePlayer();
         $this->saveNewStateMonsters();
         if ($player->getHp() == 0) {

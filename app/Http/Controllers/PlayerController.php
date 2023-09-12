@@ -18,11 +18,6 @@ class PlayerController extends Controller
         return $service->action(__FUNCTION__, $request->getAction());
     }
 
-    public function hill()
-    {
-
-    }
-
     public function battle(MoveRequest $request, PlayerService $service)
     {
         return $service->action(__FUNCTION__, $request->getAction());

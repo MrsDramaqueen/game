@@ -25,6 +25,10 @@ class Hit implements Command
         $playerDamage = $this->player->hit();
         $this->monster->setHP(max($this->monster->getHP() - $playerDamage, 0));
 
+        if($this->monster->getHP() == 0) {
+            $this->monster->setDamage(0);
+        }
+
         //TODO: вынести для противников отдельно?
         $monsterDamage = $this->monster->hit();
         $this->player->setHp(max($this->player->getHP() - $monsterDamage, 0));

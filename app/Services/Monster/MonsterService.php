@@ -2,7 +2,10 @@
 
 namespace App\Services\Monster;
 
+use App\Entity\Monster\ListMonsters;
 use App\Entity\Monster\Monster;
+use App\Entity\Player\Player;
+use App\Services\Mediator\StrategyMediator\StrategyMediator;
 
 class MonsterService
 {
@@ -19,5 +22,10 @@ class MonsterService
             ->setPositionWidth($monster->getPositionWidth())
             ->setPositionHeight($monster->getPositionHeight())
             ->setMana($monster->getMana());
+    }
+
+    public static function action($action, $command)
+    {
+        $strategyMediator = new StrategyMediator(ListMonsters::getInstance()->getMonsters());
     }
 }
