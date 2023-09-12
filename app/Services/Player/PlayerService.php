@@ -5,12 +5,13 @@ namespace App\Services\Player;
 use App\Entity\Monster\ListMonsters;
 use App\Entity\Obstacle\ListObstacles;
 use App\Http\Controllers\GameController;
+use App\Models\Monster;
 use \App\Models\Player;
 use App\Services\Game\GameService;
 use App\Services\Game\LogService;
 use App\Services\Mediator\MoveMediator;
 use App\Services\Strategy\LowHPStrategy;
-
+//TODO: Навести порядок
 class PlayerService
 {
     public static function setPlayer(Player $player): void
@@ -44,6 +45,7 @@ class PlayerService
 
         $this->{$action}($newCommand);
         $this->saveNewStatePlayer();
+        $this->saveNewStateMonsters();
         return GameController::getViewBoard();
     }
 
@@ -61,13 +63,28 @@ class PlayerService
 
     }
 
-    protected function battle($command)
+    //TODO: Сделать для монстров паттерн состояние, в зависимости от которого они выбирают команду или стратегию
+    protected function battle($command): void
     {
         LogService::log("Игрок задействовал $command");
 
-        $command = BattleService::getBattleCommand($command, \App\Entity\Player\Player::getInstance());
-
+        $monsterNearPlayer = $this->getMonsterNearPlayer();
+        $command = BattleService::getBattleCommand($command, \App\Entity\Player\Player::getInstance(), $monsterNearPlayer);
+//dd($this->getMonsterNearPlayer());
         $command->execute();
+    }
+
+    private function getMonsterNearPlayer()
+    {
+        $player = \App\Entity\Player\Player::getInstance();
+        $monsters = \App\Entity\Monster\ListMonsters::getInstance()->getMonsters();
+
+        foreach ($monsters as $monster) {
+            if (abs($monster->getPositionHeight() - $player->getPositionHeight()) == 1
+                && abs($monster->getPositionWidth() - $player->getPositionWidth()) == 1) {
+                return $monster;
+            }
+        }
     }
 
     private function saveNewStatePlayer(): void
@@ -80,7 +97,7 @@ class PlayerService
         $playerModel
             ->setHp($player->getHp())
             ->setDamage($player->getDamage())
-            ->setExp($player->getLevel())
+            ->setExp($player->getExp())
             ->setLevel($player->getLevel())
             //->setState($player->getState())
             ->setPositionWidth($player->getPositionWidth())
@@ -89,8 +106,21 @@ class PlayerService
             ->save();
     }
 
-    private function saveNewStateMonsters()
+    private function saveNewStateMonsters(): void
     {
+        $monsters = ListMonsters::getInstance()->getMonsters();
+
+        foreach ($monsters as $monster) {
+            $monsterModel = Monster::query()->find($monster->getId());
+
+            $monsterModel->update([
+                'hp'=> $monster->getHp(),
+                'damage' => $monster->getDamage(),
+                'position_width' => $monster->getPositionWidth(),
+                'position_height' => $monster->getPositionHeight(),
+                'mana' => $monster->getDamage(),
+            ]);
+        }
 
     }
 

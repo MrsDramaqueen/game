@@ -16,6 +16,26 @@ class Monster
 
     protected int $mana;
 
+    protected int $id;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return Monster
+     */
+    public function setId(int $id): Monster
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     /**
      * @return int
      */
@@ -122,5 +142,10 @@ class Monster
     {
         $this->positionHeight = $positionHeight;
         return $this;
+    }
+
+    public function hit()
+    {
+        return $this->getDamage();
     }
 }

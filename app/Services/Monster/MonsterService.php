@@ -12,6 +12,7 @@ class MonsterService
         $positionHeight = rand(3, 8);
 
         return (new Monster())
+            ->setId($monster->getId())
             ->setHp($monster->getHp())
             ->setDamage($monster->getDamage())
             ->setType($monster->getType())

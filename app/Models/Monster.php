@@ -18,6 +18,8 @@ class Monster extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['hp', 'damage', 'position_width', 'position_height'];
+
     const GOBLIN_TYPE = 'goblin';
 
     const CIRCLE_WITH_SWORD_TYPE = 'circle';
