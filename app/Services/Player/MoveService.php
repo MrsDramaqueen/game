@@ -8,6 +8,7 @@ use App\Services\Player\Commands\Down;
 use App\Services\Player\Commands\Left;
 use App\Services\Player\Commands\Right;
 use App\Services\Player\Commands\Up;
+use Illuminate\Support\Facades\Log;
 
 class MoveService
 {
@@ -23,13 +24,11 @@ class MoveService
      */
     public static function getMoveCommand($command, Characters $characters): mixed
     {
-        $cart = [
+        return match ($command) {
             self::MOVE_LEFT => new Left($characters),
             self::MOVE_RIGHT => new Right($characters),
             self::MOVE_UP => new Up($characters),
-            self::MOVE_DOWN => new Down($characters)
-        ];
-
-        return $cart[$command];
+            default =>new Down($characters)
+        };
     }
 }

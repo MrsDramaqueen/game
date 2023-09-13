@@ -25,8 +25,7 @@ class MoveMediator implements Mediator
     {
         $positionHeight = $this->player->getPositionHeight();
         $positionWidth = $this->player->getPositionWidth();
-        //$command = $event;
-        //dd($event);
+
         if ($command == MoveService::MOVE_UP) {
             foreach ($datas as $data) {
                 if ($data['height'] == $positionHeight - 1 && $data['width'] == $positionWidth) {
@@ -47,7 +46,6 @@ class MoveMediator implements Mediator
 
         if ($command == MoveService::MOVE_LEFT) {
             foreach ($datas as $data) {
-                //dd($this->player->getPositionWidth() - 1);
                 if ($data['width'] == $positionWidth - 1 && $data['height'] == $positionHeight) {
                     $command = MoveService::MOVE_UP;
                     $this->getLog($command);

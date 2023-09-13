@@ -44,7 +44,7 @@ class PlayerService
             $player->setDamage((new LowHPStrategy())->doDamage($player->getDamage()));
         }*/
 
-        $this->{$action}($newCommand);
+        //$this->{$action}($newCommand);
 
         (new \App\Services\Monster\MonsterService)->action($action, $command);
 

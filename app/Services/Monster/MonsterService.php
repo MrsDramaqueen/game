@@ -31,22 +31,21 @@ class MonsterService
 
         $monsters = ListMonsters::getInstance()->getMonsters();
 
-        foreach ($monsters as $monster) {
-            if ($monster->id == 1){
-                $command = 'left';
-            } else {
-                $command = 'up';
-            }
+
+            //Пока что имитация выборы команды для того, чтобы противники вели себя по-разному
+
             $this->{$action}($command);
-        }
+
     }
 
     protected function move($command)
     {
-        $monsters = ListMonsters::getInstance();
+        $monsters = ListMonsters::getInstance()->getMonsters();
+        foreach ($monsters as $monster) {
+            $command = MoveService::getMoveCommand($command, $monster);
+            $command->execute();
+        }
 
-        $command = MoveService::getMoveCommand($command, $monsters);
-        $command->execute();
     }
 
     protected function battle()
