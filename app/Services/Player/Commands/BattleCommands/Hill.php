@@ -2,23 +2,24 @@
 
 namespace App\Services\Player\Commands\BattleCommands;
 
+use App\Entity\Characters;
 use App\Entity\Player\Player;
 use App\Services\Player\Commands\Command;
 
 class Hill implements Command
 {
-    private $player;
+    private $characters;
 
     /**
-     * @param Player $player
+     * @param Characters $characters
      */
-    public function __construct(Player $player)
+    public function __construct(Characters $characters)
     {
-        $this->player = $player;
+        $this->characters = $characters;
     }
 
     public function execute()
     {
-        $this->player->hill();
+        $this->characters->hill();
     }
 }

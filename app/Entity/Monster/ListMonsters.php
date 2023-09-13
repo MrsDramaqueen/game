@@ -15,7 +15,7 @@ class ListMonsters implements Characters
     protected $mediator;
 
     /**
-     * @param $mediator
+     * @param Mediator|null $mediator
      */
     public function __construct(Mediator $mediator = null)
     {
@@ -91,5 +91,15 @@ class ListMonsters implements Characters
     public function hill()
     {
         // TODO: Implement hill() method.
+    }
+
+    //TODO: От состояния в посреднике будет выбираться стратегия, в которой будут выполняться команды
+    public function doAction($strategyMediator, $monster)
+    {
+        $listMonsters = $this->getMonsters();
+
+        $this->setMediator($strategyMediator);
+        $state = 'berserk';
+        return $this->mediator->notify($this, $state, $listMonsters);
     }
 }

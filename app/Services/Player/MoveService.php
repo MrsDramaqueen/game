@@ -4,6 +4,7 @@ namespace App\Services\Player;
 
 use App\Entity\Characters;
 use App\Entity\Player\Player;
+use App\Services\Game\LogService;
 use App\Services\Player\Commands\Down;
 use App\Services\Player\Commands\Left;
 use App\Services\Player\Commands\Right;
@@ -28,7 +29,8 @@ class MoveService
             self::MOVE_LEFT => new Left($characters),
             self::MOVE_RIGHT => new Right($characters),
             self::MOVE_UP => new Up($characters),
-            default =>new Down($characters)
+            self::MOVE_DOWN => new Down($characters),
+            default => '',
         };
     }
 }

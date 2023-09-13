@@ -28,6 +28,8 @@ class Monster extends Model
 
     const HIT_COMMAND = 'hit';
 
+    const BERSERK_STATE = 'berserk';
+
     /**
      * @return int
      */

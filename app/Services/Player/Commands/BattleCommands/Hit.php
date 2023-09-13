@@ -2,35 +2,38 @@
 
 namespace App\Services\Player\Commands\BattleCommands;
 
+use App\Entity\Characters;
 use App\Entity\Player\Player;
 use App\Services\Player\Commands\Command;
 
 class Hit implements Command
 {
-    private $player;
+    private $characters;
 
-    private $monster;
+    private $enemyCharacters;
 
     /**
-     * @param Player $player
+     * @param Characters $characters
+     * @param $monster
      */
-    public function __construct(Player $player, $monster)
+    public function __construct(Characters $characters, $enemyCharacters)
     {
-        $this->player = $player;
-        $this->monster = $monster;
+        $this->characters = $characters;
+        $this->enemyCharacters = $enemyCharacters;
     }
 
     public function execute()
     {
-        $playerDamage = $this->player->hit();
-        $this->monster->setHP(max($this->monster->getHP() - $playerDamage, 0));
+        $playerDamage = $this->characters->hit();
+        //dd(max($this->enemyCharacters->getHP() - $playerDamage, 0));
+        $this->enemyCharacters->setHP(max($this->enemyCharacters->getHP() - $playerDamage, 0));
 
-        if($this->monster->getHP() == 0) {
-            $this->monster->setDamage(0);
+        if($this->enemyCharacters->getHP() == 0) {
+            $this->enemyCharacters->setDamage(0);
         }
 
         //TODO: вынести для противников отдельно?
-        $monsterDamage = $this->monster->hit();
-        $this->player->setHp(max($this->player->getHP() - $monsterDamage, 0));
+       /* $monsterDamage = $this->enemyCharacters->hit();
+        $this->characters->setHp(max($this->characters->getHP() - $monsterDamage, 0));*/
     }
 }

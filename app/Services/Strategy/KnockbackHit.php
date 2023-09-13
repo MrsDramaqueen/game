@@ -14,4 +14,9 @@ class KnockbackHit implements Strategy
     {
         // TODO: Implement doHill() method.
     }
+
+    public function doStrategyActions()
+    {
+        // TODO: Implement doStrategyActions() method.
+    }
 }

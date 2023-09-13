@@ -13,4 +13,9 @@ class FullHPStrategy implements Strategy
     {
         return $data * 0.7;
     }
+
+    public function doStrategyActions()
+    {
+        // TODO: Implement doStrategyActions() method.
+    }
 }

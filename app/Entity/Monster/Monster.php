@@ -3,6 +3,8 @@
 namespace App\Entity\Monster;
 
 use App\Entity\Characters;
+use App\Services\Game\LogService;
+use App\Services\Strategy\Strategy;
 
 class Monster implements Characters
 {
@@ -19,6 +21,40 @@ class Monster implements Characters
     protected int $mana;
 
     public int $id;
+
+    private $strategy;
+
+    const GOBLIN_TYPE_HP = 70;
+
+    const CIRCLE_TYPE_HP = 45;
+
+    const MAG_TYPE_HP = 150;
+
+    const MAX_HILL_HP = 80;
+
+
+    public function __construct(Strategy $strategy = null)
+    {
+        $this->strategy = $strategy;
+    }
+
+    /**
+     * @param Strategy $strategy
+     * @return Monster
+     */
+    public function setStrategy(Strategy $strategy): Monster
+    {
+        $this->strategy = $strategy;
+        return $this;
+    }
+
+    /**
+     * @return Strategy|null
+     */
+    public function getStrategy(): ?Strategy
+    {
+        return $this->strategy;
+    }
 
     /**
      * @return int
@@ -173,6 +209,18 @@ class Monster implements Characters
 
     public function hill()
     {
-        // TODO: Implement hill() method.
+        //Можно использовать посредника для установления параметра хилла в зависимости от типа монстра
+        //пока сделаю одну логику для всех
+        if ($this->getHp() < self::MAX_HILL_HP && $this->getMana() > 0) {
+            $this->setHp(min($this->getHp() + 10, 100));
+            $this->setMana($this->getMana() - 10);
+        } else {
+            LogService::log('Недостаточно маны или вы восполнили здоровье на максимум');
+        }
+    }
+
+    public function doAction()
+    {
+        return $this->strategy->doStrategyActions();
     }
 }

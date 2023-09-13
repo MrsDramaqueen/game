@@ -21,48 +21,48 @@ class MoveMediator implements Mediator
     }
 
 
-    public function notify(object $sender, string $command, array $datas): string
+    public function notify(object $sender, string $event, array $datas): string
     {
         $positionHeight = $this->player->getPositionHeight();
         $positionWidth = $this->player->getPositionWidth();
 
-        if ($command == MoveService::MOVE_UP) {
+        if ($event == MoveService::MOVE_UP) {
             foreach ($datas as $data) {
                 if ($data['height'] == $positionHeight - 1 && $data['width'] == $positionWidth) {
-                    $command = MoveService::MOVE_RIGHT;
-                    $this->getLog($command);
+                    $event = MoveService::MOVE_RIGHT;
+                    $this->getLog($event);
                 }
             }
         }
 
-        if ($command == MoveService::MOVE_DOWN) {
+        if ($event == MoveService::MOVE_DOWN) {
             foreach ($datas as $data) {
                 if ($data['height'] == $positionHeight + 1 && $data['width'] == $positionWidth) {
-                    $command = MoveService::MOVE_LEFT;
-                    $this->getLog($command);
+                    $event = MoveService::MOVE_LEFT;
+                    $this->getLog($event);
                 }
             }
         }
 
-        if ($command == MoveService::MOVE_LEFT) {
+        if ($event == MoveService::MOVE_LEFT) {
             foreach ($datas as $data) {
                 if ($data['width'] == $positionWidth - 1 && $data['height'] == $positionHeight) {
-                    $command = MoveService::MOVE_UP;
-                    $this->getLog($command);
+                    $event = MoveService::MOVE_UP;
+                    $this->getLog($event);
                 }
             }
         }
 
-        if ($command == MoveService::MOVE_RIGHT) {
+        if ($event == MoveService::MOVE_RIGHT) {
             foreach ($datas as $data) {
                 if ($data['width'] == $positionWidth + 1 && $data['height'] == $positionHeight) {
-                    $command = MoveService::MOVE_DOWN;
-                    $this->getLog($command);
+                    $event = MoveService::MOVE_DOWN;
+                    $this->getLog($event);
                 }
             }
         }
 
-        return $command;
+        return $event;
     }
 
     private function getLog($path)

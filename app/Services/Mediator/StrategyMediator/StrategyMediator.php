@@ -3,11 +3,13 @@
 namespace App\Services\Mediator\StrategyMediator;
 
 use App\Entity\Monster\ListMonsters;
+use App\Models\Monster;
 use App\Services\Mediator\Mediator;
+use App\Services\Strategy\FullHPStrategy;
 
 class StrategyMediator implements Mediator
 {
-    private ListMonsters $monsters;
+    private $monsters;
 
     /**
      * @param array $monsters
@@ -19,8 +21,17 @@ class StrategyMediator implements Mediator
     }
 
 
-    public function notify(object $sender, string $command, array $datas)
+    public function notify(object $sender, string $event, array $datas)
     {
-        // TODO: Implement notify() method.
+        /** @var $data \App\Entity\Monster\Monster */
+
+        foreach ($datas as $data) {
+            if ($event == Monster::BERSERK_STATE) {
+                $data->setStrategy(new FullHPStrategy());
+                $data->doAction();
+                //TODO: в блоках if должна выбираться стратегия
+            }
+        }
+
     }
 }

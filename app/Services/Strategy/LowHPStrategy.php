@@ -14,4 +14,9 @@ class LowHPStrategy implements Strategy
     {
         return $data * 1.3;
     }
+
+    public function doStrategyActions()
+    {
+        // TODO: Implement doStrategyActions() method.
+    }
 }
