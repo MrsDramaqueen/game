@@ -7,7 +7,7 @@ use App\Services\Mediator\Mediator;
 
 class StrategyMediator implements Mediator
 {
-    private array $monsters;
+    private ListMonsters $monsters;
 
     /**
      * @param array $monsters

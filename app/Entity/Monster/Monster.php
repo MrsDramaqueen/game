@@ -2,7 +2,9 @@
 
 namespace App\Entity\Monster;
 
-class Monster
+use App\Entity\Characters;
+
+class Monster implements Characters
 {
     protected int $hp;
 
@@ -16,7 +18,7 @@ class Monster
 
     protected int $mana;
 
-    protected int $id;
+    public int $id;
 
     /**
      * @return int
@@ -147,5 +149,30 @@ class Monster
     public function hit()
     {
         return $this->getDamage();
+    }
+
+    public function up()
+    {
+        $this->setPositionHeight($this->getPositionHeight() - 1);
+    }
+
+    public function down()
+    {
+        $this->setPositionHeight($this->getPositionHeight() + 1);
+    }
+
+    public function left()
+    {
+        $this->setPositionWidth($this->getPositionWidth() - 1);
+    }
+
+    public function right()
+    {
+        $this->setPositionWidth($this->getPositionWidth() + 1);
+    }
+
+    public function hill()
+    {
+        // TODO: Implement hill() method.
     }
 }

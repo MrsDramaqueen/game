@@ -46,7 +46,7 @@ class PlayerService
 
         $this->{$action}($newCommand);
 
-        MonsterService::action($action, $command);
+        (new \App\Services\Monster\MonsterService)->action($action, $command);
 
         $this->saveNewStatePlayer();
         $this->saveNewStateMonsters();

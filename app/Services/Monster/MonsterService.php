@@ -6,6 +6,7 @@ use App\Entity\Monster\ListMonsters;
 use App\Entity\Monster\Monster;
 use App\Entity\Player\Player;
 use App\Services\Mediator\StrategyMediator\StrategyMediator;
+use App\Services\Player\MoveService;
 
 class MonsterService
 {
@@ -24,8 +25,32 @@ class MonsterService
             ->setMana($monster->getMana());
     }
 
-    public static function action($action, $command)
+    public function action($action, $command)
     {
-        $strategyMediator = new StrategyMediator(ListMonsters::getInstance()->getMonsters());
+        $strategyMediator = new StrategyMediator(ListMonsters::getInstance());
+
+        $monsters = ListMonsters::getInstance()->getMonsters();
+
+        foreach ($monsters as $monster) {
+            if ($monster->id == 1){
+                $command = 'left';
+            } else {
+                $command = 'up';
+            }
+            $this->{$action}($command);
+        }
+    }
+
+    protected function move($command)
+    {
+        $monsters = ListMonsters::getInstance();
+
+        $command = MoveService::getMoveCommand($command, $monsters);
+        $command->execute();
+    }
+
+    protected function battle()
+    {
+
     }
 }

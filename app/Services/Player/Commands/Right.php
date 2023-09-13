@@ -2,22 +2,23 @@
 
 namespace App\Services\Player\Commands;
 
+use App\Entity\Characters;
 use App\Entity\Player\Player;
 
 class Right implements Command
 {
-    private $player;
+    private $characters;
 
     /**
      * @param Player $player
      */
-    public function __construct(Player $player)
+    public function __construct(Characters $characters)
     {
-        $this->player = $player;
+        $this->characters = $characters;
     }
 
     public function execute()
     {
-        $this->player->right();
+        $this->characters->right();
     }
 }

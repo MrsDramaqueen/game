@@ -2,22 +2,23 @@
 
 namespace App\Services\Player\Commands;
 
+use App\Entity\Characters;
 use App\Entity\Player\Player;
 
 class Left implements Command
 {
-    private $player;
+    private $characters;
 
     /**
-     * @param Player $player
+     * @param Characters $characters
      */
-    public function __construct(Player $player)
+    public function __construct(Characters $characters)
     {
-        $this->player = $player;
+        $this->characters = $characters;
     }
 
     public function execute()
     {
-        $this->player->left();
+        $this->characters->left();
     }
 }

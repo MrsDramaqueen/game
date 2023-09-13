@@ -2,10 +2,11 @@
 
 namespace App\Entity\Monster;
 
+use App\Entity\Characters;
 use App\Services\Mediator\Mediator;
 use App\Traits\Singleton;
 
-class ListMonsters
+class ListMonsters implements Characters
 {
     use Singleton;
 
@@ -16,7 +17,7 @@ class ListMonsters
     /**
      * @param $mediator
      */
-    public function __construct($mediator = null)
+    public function __construct(Mediator $mediator = null)
     {
         $this->mediator = $mediator;
     }
@@ -47,5 +48,48 @@ class ListMonsters
     {
         $this->monsters = $monsters;
         return $this;
+    }
+
+    public function hit()
+    {
+        foreach ($this->getMonsters() as $monster) {
+            $monster->hit();
+        }
+
+    }
+
+    public function up()
+    {
+        foreach ($this->getMonsters() as $monster) {
+            $monster->up();
+        }
+
+    }
+
+    public function down()
+    {
+        foreach ($this->getMonsters() as $monster) {
+           $monster->down();
+        }
+
+    }
+
+    public function left(): void
+    {
+        foreach ($this->getMonsters() as $monster) {
+            $monster->left();
+        }
+    }
+
+    public function right()
+    {
+        foreach ($this->getMonsters() as $monster) {
+            $monster->right();
+        }
+    }
+
+    public function hill()
+    {
+        // TODO: Implement hill() method.
     }
 }

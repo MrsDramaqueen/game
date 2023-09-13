@@ -18,7 +18,7 @@ class PlayerController extends Controller
         return $service->action(__FUNCTION__, $request->getAction());
     }
 
-    public function battle(MoveRequest $request, PlayerService $service)
+    public function battle(MoveRequest $request, PlayerService $service): string
     {
         return $service->action(__FUNCTION__, $request->getAction());
     }

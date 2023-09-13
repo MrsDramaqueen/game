@@ -2,12 +2,13 @@
 
 namespace App\Entity\Player;
 
+use App\Entity\Characters;
 use App\Services\Game\LogService;
 use App\Services\Mediator\Mediator;
 use App\Services\Strategy\Strategy;
 use App\Traits\Singleton;
 
-class Player
+class Player implements Characters
 {
     use Singleton;
 

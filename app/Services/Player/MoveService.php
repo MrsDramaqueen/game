@@ -2,6 +2,7 @@
 
 namespace App\Services\Player;
 
+use App\Entity\Characters;
 use App\Entity\Player\Player;
 use App\Services\Player\Commands\Down;
 use App\Services\Player\Commands\Left;
@@ -17,19 +18,18 @@ class MoveService
 
     /**
      * @param $command
-     * @param Player $player
+     * @param Characters $characters
      * @return mixed
      */
-    public static function getMoveCommand($command, Player $player): mixed
+    public static function getMoveCommand($command, Characters $characters): mixed
     {
         $cart = [
-            self::MOVE_LEFT => new Left($player),
-            self::MOVE_RIGHT => new Right($player),
-            self::MOVE_UP => new Up($player),
-            self::MOVE_DOWN => new Down($player)
+            self::MOVE_LEFT => new Left($characters),
+            self::MOVE_RIGHT => new Right($characters),
+            self::MOVE_UP => new Up($characters),
+            self::MOVE_DOWN => new Down($characters)
         ];
 
-        //dd($command);
         return $cart[$command];
     }
 }
