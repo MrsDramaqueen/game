@@ -29,10 +29,10 @@ class StrategyMediator implements Mediator
         /** @var $data \App\Entity\Monster\Monster */
 
         foreach ($datas as $data) {
-            match ($event) {
-                Monster::BERSERK_STATE => $className = 'App\Services\Strategy\FullHPStrategy'/*$data->setStrategy(new FullHPStrategy())*/,
-                Monster::HILLER_STATE => $className = 'App\Services\Strategy\LowHPStrategy',
-                default => $className = 'App\Services\Strategy\DefaultStrategy'/*$data->setStrategy(new DefaultStrategy())*/
+            $className = match ($event) {
+                Monster::BERSERK_STATE => FullHPStrategy::class,
+                Monster::HILLER_STATE => LowHPStrategy::class,
+                default => DefaultStrategy::class,
             };
             $data->setStrategy(new $className());
             return $data->doAction();
