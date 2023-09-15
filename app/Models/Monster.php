@@ -30,6 +30,8 @@ class Monster extends Model
 
     const BERSERK_STATE = 'berserk';
 
+    const HILLER_STATE = 'hiller';
+
     /**
      * @return int
      */

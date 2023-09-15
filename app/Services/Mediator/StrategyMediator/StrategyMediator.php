@@ -5,7 +5,9 @@ namespace App\Services\Mediator\StrategyMediator;
 use App\Entity\Monster\ListMonsters;
 use App\Models\Monster;
 use App\Services\Mediator\Mediator;
+use App\Services\Strategy\DefaultStrategy;
 use App\Services\Strategy\FullHPStrategy;
+use App\Services\Strategy\LowHPStrategy;
 
 class StrategyMediator implements Mediator
 {
@@ -26,12 +28,13 @@ class StrategyMediator implements Mediator
         /** @var $data \App\Entity\Monster\Monster */
 
         foreach ($datas as $data) {
-            if ($event == Monster::BERSERK_STATE) {
-                $data->setStrategy(new FullHPStrategy());
-                $data->doAction();
-                //TODO: в блоках if должна выбираться стратегия
-            }
+            match ($event) {
+                Monster::BERSERK_STATE => $className = 'App\Services\Strategy\FullHPStrategy'/*$data->setStrategy(new FullHPStrategy())*/,
+                Monster::HILLER_STATE => $className = 'App\Services\Strategy\LowHPStrategy',
+                default => $className = 'App\Services\Strategy\DefaultStrategy'/*$data->setStrategy(new DefaultStrategy())*/
+            };
+            $data->setStrategy(new $className());
+            return $data->doAction();
         }
-
     }
 }

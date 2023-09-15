@@ -221,6 +221,7 @@ class Monster implements Characters
 
     public function doAction()
     {
+        //dd($this->strategy->doStrategyActions());
         return $this->strategy->doStrategyActions();
     }
 }

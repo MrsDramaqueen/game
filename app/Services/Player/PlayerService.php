@@ -79,7 +79,6 @@ class PlayerService
 
         $monsterNearPlayer = $this->getMonsterNearPlayer();
         $command = BattleService::getBattleCommand($command, \App\Entity\Player\Player::getInstance(), $monsterNearPlayer);
-//dd($this->getMonsterNearPlayer());
         $command->execute();
     }
 

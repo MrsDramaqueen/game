@@ -2,6 +2,8 @@
 
 namespace App\Services\Strategy;
 
+use App\Entity\Monster\Monster;
+
 class LowHPStrategy implements Strategy
 {
 
@@ -17,6 +19,6 @@ class LowHPStrategy implements Strategy
 
     public function doStrategyActions()
     {
-        // TODO: Implement doStrategyActions() method.
+        return \App\Models\Monster::HILL_COMMAND;
     }
 }

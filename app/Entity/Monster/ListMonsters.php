@@ -97,9 +97,10 @@ class ListMonsters implements Characters
     public function doAction($strategyMediator, $monster)
     {
         $listMonsters = $this->getMonsters();
-
         $this->setMediator($strategyMediator);
-        $state = 'berserk';
+        //Состояние пока хардкодом
+        $state = '';
+        //dd($this->mediator->notify($this, $state, $listMonsters));
         return $this->mediator->notify($this, $state, $listMonsters);
     }
 }
