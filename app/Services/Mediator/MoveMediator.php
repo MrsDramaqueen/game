@@ -28,6 +28,7 @@ class MoveMediator implements Mediator
         $positionHeight = $this->player->getPositionHeight();
         $positionWidth = $this->player->getPositionWidth();
 
+        //TODO: Тоже можно отрефакторить
         if ($event == MoveService::MOVE_UP) {
             foreach ($datas as $data) {
                 if ($data['height'] == $positionHeight - 1 && $data['width'] == $positionWidth) {
