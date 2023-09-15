@@ -7,6 +7,8 @@ use App\Services\Game\LogService;
 use App\Services\Monster\MonsterService;
 use App\Services\Player\MoveService;
 
+//TODO: Применить к монстрам, чтобы они тоже обходили препятствия
+// а еще можно добавить условный куст, в котором монстр будет прятаться и быть в инвизе для игрока
 class MoveMediator implements Mediator
 {
     private Player $player;
