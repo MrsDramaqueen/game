@@ -23,6 +23,7 @@ class StrategyMediator implements Mediator
     }
 
 
+    //TODO: Убрать перебор монстров в каждом методе, а то херня какая-то получается
     public function notify(object $sender, string $event, array $datas)
     {
         /** @var $data \App\Entity\Monster\Monster */

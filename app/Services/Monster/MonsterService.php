@@ -30,8 +30,6 @@ class MonsterService
     {
         $strategyMediator = new StrategyMediator(ListMonsters::getInstance());
         $monsters = ListMonsters::getInstance()->getMonsters();
-        //Пока что имитация выборы команды для того, чтобы противники вели себя по-разному
-        //Тут будет вызываться посредник, который будет выбирать стратегию
         foreach ($monsters as $monster) {
             //TODO: как-то выбрать будет монстр ходить или драться, пока хардкод
             $action = 'move';

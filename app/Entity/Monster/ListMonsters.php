@@ -96,11 +96,13 @@ class ListMonsters implements Characters
     //TODO: От состояния в посреднике будет выбираться стратегия, в которой будут выполняться команды
     public function doAction($strategyMediator, $monster)
     {
-        $listMonsters = $this->getMonsters();
-        $this->setMediator($strategyMediator);
-        //Состояние пока хардкодом
         $state = '';
-        //dd($this->mediator->notify($this, $state, $listMonsters));
+        $listMonsters = $this->getMonsters();
+        foreach ($listMonsters as $monster) {
+            //TODO: Добавить state для монстра
+            //$state = $monster->getState();
+        }
+        $this->setMediator($strategyMediator);
         return $this->mediator->notify($this, $state, $listMonsters);
     }
 }
