@@ -22,20 +22,17 @@ class StrategyMediator implements Mediator
         $this->monsters->setMediator($this);
     }
 
-
     //TODO: Убрать перебор монстров в каждом методе, а то херня какая-то получается
     public function notify(object $sender, string $event, array $datas)
     {
-        /** @var $data \App\Entity\Monster\Monster */
+        /** @var $sender \App\Entity\Monster\Monster */
 
-        foreach ($datas as $data) {
-            $className = match ($event) {
-                Monster::BERSERK_STATE => FullHPStrategy::class,
-                Monster::HILLER_STATE => LowHPStrategy::class,
-                default => DefaultStrategy::class,
-            };
-            $data->setStrategy(new $className());
-            return $data->doAction();
-        }
+        $className = match ($event) {
+            Monster::BERSERK_STATE => FullHPStrategy::class,
+            Monster::HILLER_STATE => LowHPStrategy::class,
+            default => DefaultStrategy::class,
+        };
+        $sender->setStrategy(new $className());
+        return $sender->doAction();
     }
 }

@@ -4,6 +4,7 @@ namespace App\Entity\Monster;
 
 use App\Entity\Characters;
 use App\Services\Game\LogService;
+use App\Services\Mediator\Mediator;
 use App\Services\Strategy\Strategy;
 
 class Monster implements Characters
@@ -24,6 +25,8 @@ class Monster implements Characters
 
     private $strategy;
 
+    protected $mediator;
+
     const GOBLIN_TYPE_HP = 70;
 
     const CIRCLE_TYPE_HP = 45;
@@ -32,10 +35,15 @@ class Monster implements Characters
 
     const MAX_HILL_HP = 80;
 
-
-    public function __construct(Strategy $strategy = null)
+    public function __construct(Mediator $mediator = null, Strategy $strategy = null)
     {
+        $this->mediator = $mediator;
         $this->strategy = $strategy;
+    }
+
+    public function setMediator(Mediator $mediator): void
+    {
+        $this->mediator = $mediator;
     }
 
     /**

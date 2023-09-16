@@ -15,7 +15,7 @@ interface Characters
 
     const MOVE_COMMAND = [
         self::DOWN_COMMAND => 'down',
-        self::LEFT_COMMAND => 'right',
+        self::LEFT_COMMAND => 'left',
         self::UP_COMMAND => 'up',
         self::RIGHT_COMMAND => 'right',
     ];

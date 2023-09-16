@@ -3,12 +3,11 @@
 namespace App\Services\Player\Commands\BattleCommands;
 
 use App\Entity\Characters;
-use App\Entity\Player\Player;
 use App\Services\Player\Commands\Command;
 
 class Hill implements Command
 {
-    private $characters;
+    private Characters $characters;
 
     /**
      * @param Characters $characters

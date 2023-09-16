@@ -45,7 +45,6 @@ class ListObstacles
     public function getPositions($moveMediator, $command)
     {
         $listObstacles = $this->getObstacles();
-
         $boardPositions = [];
         foreach ($listObstacles as $obstacle) {
             $boardPositions[] = [

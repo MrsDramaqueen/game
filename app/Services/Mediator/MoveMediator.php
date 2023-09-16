@@ -2,6 +2,7 @@
 
 namespace App\Services\Mediator;
 
+use App\Entity\Characters;
 use App\Entity\Player\Player;
 use App\Services\Game\LogService;
 use App\Services\Monster\MonsterService;
@@ -11,60 +12,60 @@ use App\Services\Player\MoveService;
 // а еще можно добавить условный куст, в котором монстр будет прятаться и быть в инвизе для игрока
 class MoveMediator implements Mediator
 {
-    private Player $player;
+    private Characters $characters;
 
     /**
-     * @param Player $player
+     * @param Characters $characters
      */
-    public function __construct(Player $player)
+    public function __construct(Characters $characters)
     {
-        $this->player = $player;
-        $this->player->setMediator($this);
+        $this->characters = $characters;
+        $this->characters->setMediator($this);
     }
 
 
     public function notify(object $sender, string $event, array $datas): string
     {
-        $positionHeight = $this->player->getPositionHeight();
-        $positionWidth = $this->player->getPositionWidth();
+        $positionHeight = $this->characters->getPositionHeight();
+        $positionWidth = $this->characters->getPositionWidth();
 
         //TODO: Тоже можно отрефакторить
-        if ($event == MoveService::MOVE_UP) {
-            foreach ($datas as $data) {
-                if ($data['height'] == $positionHeight - 1 && $data['width'] == $positionWidth) {
+        foreach ($datas as $data) {
+            if ($event == MoveService::MOVE_UP) {
+                $newPosition = $positionHeight - 1;
+                //dd($data['height'] == $positionHeight - 1 && $data['width'] == $positionWidth || $positionHeight - 1 <= 0);
+                if ($data['height'] == $positionHeight - 1 && $data['width'] == $positionWidth || $positionHeight - 1 <= 0) {
                     $event = MoveService::MOVE_RIGHT;
                     $this->getLog($event);
                 }
             }
-        }
 
-        if ($event == MoveService::MOVE_DOWN) {
-            foreach ($datas as $data) {
-                if ($data['height'] == $positionHeight + 1 && $data['width'] == $positionWidth) {
+            if ($event == MoveService::MOVE_DOWN) {
+                $newPosition = $positionHeight + 1;
+                if ($data['height'] == $positionHeight + 1 && $data['width'] == $positionWidth || $positionHeight + 1 >= 8) {
                     $event = MoveService::MOVE_LEFT;
                     $this->getLog($event);
                 }
             }
-        }
 
-        if ($event == MoveService::MOVE_LEFT) {
-            foreach ($datas as $data) {
-                if ($data['width'] == $positionWidth - 1 && $data['height'] == $positionHeight) {
+            if ($event == MoveService::MOVE_LEFT) {
+                $newPosition = $positionWidth - 1;
+                if ($data['width'] == $positionWidth - 1 && $data['height'] == $positionHeight || $positionWidth - 1 <= 0) {
                     $event = MoveService::MOVE_UP;
                     $this->getLog($event);
                 }
             }
-        }
 
-        if ($event == MoveService::MOVE_RIGHT) {
-            foreach ($datas as $data) {
-                if ($data['width'] == $positionWidth + 1 && $data['height'] == $positionHeight) {
+            if ($event == MoveService::MOVE_RIGHT) {
+                $newPosition = $positionWidth + 1;
+                if ($data['width'] == $positionWidth + 1 && $data['height'] == $positionHeight || $positionWidth + 1 >= 8) {
                     $event = MoveService::MOVE_DOWN;
                     $this->getLog($event);
                 }
             }
         }
 
+        //dd($event);
         return $event;
     }
 
