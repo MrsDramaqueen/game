@@ -100,22 +100,18 @@ class ListMonsters implements Characters
     {
         $state = '';
         $listMonsters = $this->getMonsters();
-        foreach ($listMonsters as $monster) {
-            //TODO: Добавить state для монстра
-            //$state = $monster->getState();
-            $this->setMediator($strategyMediator);
-            $monsterCommand = $this->mediator->notify($monster, $state, $listMonsters);
 
-            if (in_array($monsterCommand, Characters::MOVE_COMMAND)){
-                //$monsterCommand = 'down';
-                $moveMediator = new MoveMediator($monster);
-                $monsterCommand = ListObstacles::getInstance()->getPositions($moveMediator, $monsterCommand);
-                //dd($monsterCommand);
-            }
+        //TODO: Добавить state для монстра
+        //$state = $monster->getState();
+        $this->setMediator($strategyMediator);
+        $monsterCommand = $this->mediator->notify($monster, $state, $listMonsters);
 
-            return $monsterCommand;
+        if (in_array($monsterCommand, Characters::MOVE_COMMAND)){
+            //$monsterCommand = 'down';
+            $moveMediator = new MoveMediator($monster);
+            $monsterCommand = ListObstacles::getInstance()->getPositions($moveMediator, $monsterCommand);
         }
 
-        return '';
+        return $monsterCommand;
     }
 }

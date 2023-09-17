@@ -19,6 +19,11 @@ class Obstacle extends Model
 
     const FIRE_TYPE = 'fire';
 
+    const OBSTACLE_TYPE = [
+        self::STONE_TYPE => 'stone',
+        self::FIRE_TYPE => 'fire',
+    ];
+
     /**
      * @return int
      */

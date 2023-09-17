@@ -90,7 +90,9 @@ class PlayerService
         //TODO: Подумать над логикой выбора противника, если под условие подойдет больше 1-го + переработать условие
         foreach ($monsters as $monster) {
             if (abs($monster->getPositionHeight() - $player->getPositionHeight()) == 1
-                && abs($monster->getPositionWidth() - $player->getPositionWidth()) == 1) {
+                && abs($monster->getPositionWidth() == $player->getPositionWidth())
+                || (abs($monster->getPositionWidth() - $player->getPositionWidth()) == 1)
+                && abs($monster->getPositionHeight() == $player->getPositionHeight())) {
                 return $monster;
             }
         }

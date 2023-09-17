@@ -24,6 +24,11 @@ class Monster extends Model
 
     const CIRCLE_WITH_SWORD_TYPE = 'circle';
 
+    const MONSTER_TYPE = [
+        self::GOBLIN_TYPE => 'goblin',
+        self::CIRCLE_WITH_SWORD_TYPE => 'circle',
+    ];
+
     const HILL_COMMAND = 'hill';
 
     const HIT_COMMAND = 'hit';

@@ -30,6 +30,7 @@ class MonsterService
     {
         $strategyMediator = new StrategyMediator(ListMonsters::getInstance());
         $monsters = ListMonsters::getInstance()->getMonsters();
+
         foreach ($monsters as $monster) {
             //TODO: как-то выбрать будет монстр ходить или драться, пока хардкод
             $action = 'move';
