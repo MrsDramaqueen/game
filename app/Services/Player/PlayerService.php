@@ -46,7 +46,9 @@ class PlayerService
 
         $this->{$action}($newCommand);
 
-        (new \App\Services\Monster\MonsterService)->action($action, $command);
+        $monsterNearPlayer = $this->getMonsterNearPlayer();
+
+        (new \App\Services\Monster\MonsterService)->action($action, $command, $monsterNearPlayer);
 
         $this->saveNewStatePlayer();
         $this->saveNewStateMonsters();

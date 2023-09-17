@@ -26,7 +26,7 @@ class MonsterService
             ->setMana($monster->getMana());
     }
 
-    public function action($action, $playerCommand)
+    public function action($action, $playerCommand, $monsterNearPlayer)
     {
         $strategyMediator = new StrategyMediator(ListMonsters::getInstance());
         $monsters = ListMonsters::getInstance()->getMonsters();
