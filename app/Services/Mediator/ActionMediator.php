@@ -21,7 +21,7 @@ class ActionMediator implements Mediator
 
     public function notify(object $sender, string $event, array $datas): string
     {
-        if ($sender->getHp() < 25 || $this->nearPlayer($sender)) {
+        if ($sender->getHp() < Characters::MIN_HP_FOR_HILL || $this->nearPlayer($sender)) {
             $action = Characters::BATTLE_TYPE_COMMAND;
         } else {
             $action = Characters::MOVE_TYPE_COMMAND;
@@ -36,9 +36,9 @@ class ActionMediator implements Mediator
         $player = Player::query()->get()->first();
 
         //TODO: Подумать над логикой выбора противника, если под условие подойдет больше 1-го + переработать условие
-        if (abs($monster->getPositionHeight() - $player->getPositionHeight()) == 1
+        if (abs($monster->getPositionHeight() - $player->getPositionHeight()) == Characters::MIN_DIFF_CELL_FOR_DAMAGE
             && abs($monster->getPositionWidth() == $player->getPositionWidth())
-            || (abs($monster->getPositionWidth() - $player->getPositionWidth()) == 1)
+            || (abs($monster->getPositionWidth() - $player->getPositionWidth()) == Characters::MIN_DIFF_CELL_FOR_DAMAGE)
             && abs($monster->getPositionHeight() == $player->getPositionHeight())) {
             $near = true;
         }

@@ -21,20 +21,13 @@ class Player extends Model
     use HasFactory;
 
     const HP = 100;
-
     const LEVEL = 1;
-
     const DAMAGE = 20;
-
     const EXP = 0;
-
-    const WIDTH = 1;
-
-    const HEIGHT = 1;
     const MAX_MANA = 50;
-
     const MIN_MANA = 0;
-
+    const HEIGHT_DEFAULT = 1;
+    const WIDTH_DEFAULT = 1;
     /**
      * @return int
      */

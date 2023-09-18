@@ -12,9 +12,8 @@ use Illuminate\Database\Eloquent\Model;
 class Board extends Model
 {
     use HasFactory;
-
+    const MINIMUM_COORDINATE = 1;
     const HEIGHT = 8;
-
     const WIDTH = 8;
 
     /**

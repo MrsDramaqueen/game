@@ -36,7 +36,9 @@ class Monster extends Model
     const BERSERK_STATE = 'berserk';
 
     const HILLER_STATE = 'hiller';
-
+    const MONSTER_HP = 45;
+    const MONSTER_DAMAGE = 15;
+    const MONSTER_MANA = 50;
     /**
      * @return int
      */

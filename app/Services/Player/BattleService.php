@@ -16,6 +16,7 @@ class BattleService
     //TODO: Можно добавить команду оглушения - меньше урона, но противник не может ходить 1 ход
     public static function getBattleCommand($command, Characters $characters, $monster): mixed
     {
+        //TODO: Добавить другие виды ударов, убрать в другое место хилл
         $cart = [
             self::BATTLE_ACTION_HIT => new Hit($characters, $monster),
             self::BATTLE_ACTION_HILL => new Hill($characters),

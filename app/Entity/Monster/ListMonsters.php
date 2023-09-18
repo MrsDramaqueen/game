@@ -59,7 +59,6 @@ class ListMonsters
         return $this->mediator->notify($monster, $state, $this->getMonsters());
     }
 
-    //TODO: От состояния в посреднике будет выбираться стратегия, в которой будут выполняться команды
     public function doAction($strategyMediator, $monster, $action): string
     {
         $state = '';
@@ -69,7 +68,6 @@ class ListMonsters
         //$state = $monster->getState();
         $this->setMediator($strategyMediator);
         $monsterCommand = $this->mediator->notify($monster, $action, $listMonsters);
-        //dd($monster);
 
         if (in_array($monsterCommand, Characters::MOVE_COMMAND)){
             $moveMediator = new MoveMediator($monster);

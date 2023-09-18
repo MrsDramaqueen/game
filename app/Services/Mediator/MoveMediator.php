@@ -4,6 +4,7 @@ namespace App\Services\Mediator;
 
 use App\Entity\Characters;
 use App\Entity\Player\Player;
+use App\Models\Board;
 use App\Services\Game\LogService;
 use App\Services\Monster\MonsterService;
 use App\Services\Player\MoveService;
@@ -42,7 +43,7 @@ class MoveMediator implements Mediator
 
             if ($event == MoveService::MOVE_DOWN) {
                 $newPosition = $positionHeight + 1;
-                if ($data['height'] == $positionHeight + 1 && $data['width'] == $positionWidth || $positionHeight + 1 >= 8) {
+                if ($data['height'] == $positionHeight + 1 && $data['width'] == $positionWidth || $positionHeight + 1 >= Board::HEIGHT) {
                     $event = MoveService::MOVE_LEFT;
                     $this->getLog($event);
                 }
@@ -58,7 +59,7 @@ class MoveMediator implements Mediator
 
             if ($event == MoveService::MOVE_RIGHT) {
                 $newPosition = $positionWidth + 1;
-                if ($data['width'] == $positionWidth + 1 && $data['height'] == $positionHeight || $positionWidth + 1 >= 8) {
+                if ($data['width'] == $positionWidth + 1 && $data['height'] == $positionHeight || $positionWidth + 1 >= Board::WIDTH) {
                     $event = MoveService::MOVE_DOWN;
                     $this->getLog($event);
                 }

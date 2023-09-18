@@ -2,6 +2,7 @@
 
 namespace App\Services\Player;
 
+use App\Entity\Characters;
 use App\Entity\Monster\ListMonsters;
 use App\Entity\Obstacle\ListObstacles;
 use App\Http\Controllers\GameController;
@@ -11,7 +12,6 @@ use App\Services\Game\GameService;
 use App\Services\Game\LogService;
 use App\Services\Mediator\MoveMediator;
 use App\Services\Monster\MonsterService;
-use App\Services\Strategy\LowHPStrategy;
 //TODO: Навести порядок
 class PlayerService
 {
@@ -79,9 +79,9 @@ class PlayerService
 
         //TODO: Подумать над логикой выбора противника, если под условие подойдет больше 1-го + переработать условие
         foreach ($monsters as $monster) {
-            if (abs($monster->getPositionHeight() - $player->getPositionHeight()) == 1
+            if (abs($monster->getPositionHeight() - $player->getPositionHeight()) == Characters::MIN_DIFF_CELL_FOR_DAMAGE
                 && abs($monster->getPositionWidth() == $player->getPositionWidth())
-                || (abs($monster->getPositionWidth() - $player->getPositionWidth()) == 1)
+                || (abs($monster->getPositionWidth() - $player->getPositionWidth()) == Characters::MIN_DIFF_CELL_FOR_DAMAGE)
                 && abs($monster->getPositionHeight() == $player->getPositionHeight())) {
                 return $monster;
             }

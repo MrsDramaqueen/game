@@ -12,7 +12,9 @@ interface Characters
     const DOWN_COMMAND = 'down';
     const HIT_COMMAND = 'hit';
     const HILL_COMMAND = 'hill';
-
+    const MIN_DIFF_CELL_FOR_DAMAGE = 1;
+    const MAX_DIFF_CELL_FOR_DAMAGE = 2;
+    const MIN_HP_FOR_HILL = 25;
     const MOVE_COMMAND = [
         self::DOWN_COMMAND => 'down',
         self::LEFT_COMMAND => 'left',
