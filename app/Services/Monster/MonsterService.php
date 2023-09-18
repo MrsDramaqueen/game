@@ -14,9 +14,9 @@ use App\Services\Player\MoveService;
 
 class MonsterService
 {
-    public static function setMonster(Monster $monster): Monster
+    public static function setMonster(Monster $monster): MonsterCharacter
     {
-        return (new Monster())
+        return (new MonsterCharacter())
             ->setId($monster->getId())
             ->setHp($monster->getHp())
             ->setDamage($monster->getDamage())
