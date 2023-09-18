@@ -5,15 +5,13 @@ namespace App\Entity\Obstacle;
 use App\Services\Mediator\Mediator;
 use App\Traits\Singleton;
 
-use function Symfony\Component\Translation\t;
-
 class ListObstacles
 {
     use Singleton;
 
     protected array $obstacles;
 
-    protected $mediator;
+    protected ?Mediator $mediator;
 
     public function __construct(Mediator $mediator = null)
     {

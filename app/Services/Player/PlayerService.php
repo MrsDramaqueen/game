@@ -31,7 +31,7 @@ class PlayerService
      * @param $command
      * @return string
      */
-    public function action($action, $command): string
+    public function action(string $action, string $command): string
     {
         GameService::index();
         $player = \App\Entity\Player\Player::getInstance();
@@ -54,7 +54,7 @@ class PlayerService
      * @param $command
      * @return void
      */
-    protected function move($command): void
+    protected function move(string $command): void
     {
         $player = \App\Entity\Player\Player::getInstance();
         LogService::log("Player went $command");
@@ -63,7 +63,7 @@ class PlayerService
         $command->execute();
     }
 
-    protected function battle($command): void
+    protected function battle(string $command): void
     {
         LogService::log("Игрок задействовал $command");
         $monsterNearPlayer = $this->getMonsterNearPlayer();

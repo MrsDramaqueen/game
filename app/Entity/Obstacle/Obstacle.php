@@ -13,7 +13,7 @@ class Obstacle
 
     protected int $positionHeight;
 
-    protected $mediator;
+    protected ?Mediator $mediator;
 
     public function __construct(Mediator $mediator = null)
     {

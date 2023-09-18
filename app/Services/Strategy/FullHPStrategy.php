@@ -16,7 +16,7 @@ class FullHPStrategy implements Strategy
         return $data * 0.7;
     }
 
-    public function doStrategyActions()
+    public function doStrategyActions(): string
     {
         return \App\Models\Monster::HIT_COMMAND;
     }

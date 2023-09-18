@@ -3,13 +3,10 @@
 namespace App\Services\Player;
 
 use App\Entity\Characters;
-use App\Entity\Player\Player;
-use App\Services\Game\LogService;
 use App\Services\Player\Commands\Down;
 use App\Services\Player\Commands\Left;
 use App\Services\Player\Commands\Right;
 use App\Services\Player\Commands\Up;
-use Illuminate\Support\Facades\Log;
 
 class MoveService
 {
@@ -23,7 +20,7 @@ class MoveService
      * @param Characters $characters
      * @return mixed
      */
-    public static function getMoveCommand($command, Characters $characters): mixed
+    public static function getMoveCommand(string $command, Characters $characters): mixed
     {
         return match ($command) {
             self::MOVE_LEFT => new Left($characters),

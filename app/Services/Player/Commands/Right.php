@@ -3,14 +3,13 @@
 namespace App\Services\Player\Commands;
 
 use App\Entity\Characters;
-use App\Entity\Player\Player;
 
 class Right implements Command
 {
     private $characters;
 
     /**
-     * @param Player $player
+     * @param Characters $characters
      */
     public function __construct(Characters $characters)
     {

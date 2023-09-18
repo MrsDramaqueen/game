@@ -23,9 +23,9 @@ class Monster implements Characters
 
     public int $id;
 
-    private $strategy;
+    private ?Strategy $strategy;
 
-    protected $mediator;
+    protected ?Mediator $mediator;
 
     const GOBLIN_TYPE_HP = 70;
 

@@ -8,7 +8,7 @@ use App\Models\Player;
 
 class ActionMediator implements Mediator
 {
-    private $monsters;
+    private ListMonsters $monsters;
 
     /**
      * @param ListMonsters $monsters
@@ -30,7 +30,7 @@ class ActionMediator implements Mediator
         return $action;
     }
 
-    private function nearPlayer($monster): bool
+    private function nearPlayer(object $monster): bool
     {
         $near = false;
         $player = Player::query()->get()->first();

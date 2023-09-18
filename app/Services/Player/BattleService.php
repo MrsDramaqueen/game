@@ -14,7 +14,7 @@ class BattleService
     const BATTLE_ACTION_HILL = 'hill';
 
     //TODO: Можно добавить команду оглушения - меньше урона, но противник не может ходить 1 ход
-    public static function getBattleCommand($command, Characters $characters, $monster): mixed
+    public static function getBattleCommand(string $command, Characters $characters, $monster): mixed
     {
         //TODO: Добавить другие виды ударов, убрать в другое место хилл
         $cart = [

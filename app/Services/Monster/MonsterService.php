@@ -41,14 +41,14 @@ class MonsterService
         }
     }
 
-    protected function move($command, $monster): void
+    protected function move(string $command, Monster $monster): void
     {
         LogService::log('Монстр ' . $monster->getId() . " сходил $command");
         $command = MoveService::getMoveCommand($command, $monster);
         $command->execute();
     }
 
-    protected function battle($command, $monster): void
+    protected function battle(string $command, Monster $monster): void
     {
         LogService::log('Монстр ' . $monster->getId() . " использовал $command");
         $command = BattleService::getBattleCommand($command, $monster, Player::getInstance());

@@ -12,7 +12,7 @@ use App\Services\Strategy\LowHPStrategy;
 
 class StrategyMediator implements Mediator
 {
-    private $monsters;
+    private array|ListMonsters $monsters;
 
     /**
      * @param array $monsters

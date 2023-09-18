@@ -17,7 +17,7 @@ class DefaultStrategy implements Strategy
         // TODO: Implement doHill() method.
     }
 
-    public function doStrategyActions()
+    public function doStrategyActions(): int|array|string
     {
         return array_rand(Characters::MOVE_COMMAND);
     }

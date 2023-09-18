@@ -17,7 +17,7 @@ class LowHPStrategy implements Strategy
         return $data * 1.3;
     }
 
-    public function doStrategyActions()
+    public function doStrategyActions(): string
     {
         return \App\Models\Monster::HILL_COMMAND;
     }

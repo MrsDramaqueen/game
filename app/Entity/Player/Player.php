@@ -28,9 +28,9 @@ class Player implements Characters
 
     protected int $mana;
 
-    protected $mediator;
+    protected ?Mediator $mediator;
 
-    protected $strategy;
+    protected ?Strategy $strategy;
 
     public function __construct(Mediator $mediator = null, Strategy $strategy = null)
     {

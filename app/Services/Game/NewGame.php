@@ -41,7 +41,7 @@ class NewGame
             ->save();
     }
 
-    private function generateMonsters($repeat): void
+    private function generateMonsters(int $repeat): void
     {
         /** @var Board $board */
         $board = Board::query()->get()->first();
@@ -62,7 +62,7 @@ class NewGame
         }
     }
 
-    private function generateObstacles($repeat): void
+    private function generateObstacles(int $repeat): void
     {
         /** @var Board $board */
         $board = Board::query()->get()->first();

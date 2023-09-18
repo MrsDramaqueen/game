@@ -3,7 +3,6 @@
 namespace App\Services\Player\Commands;
 
 use App\Entity\Characters;
-use App\Entity\Player\Player;
 
 class Down implements Command
 {
