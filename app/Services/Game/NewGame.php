@@ -41,7 +41,7 @@ class NewGame
             ->save();
     }
 
-    protected function generateMonsters($repeat): void
+    private function generateMonsters($repeat): void
     {
         /** @var Board $board */
         $board = Board::query()->get()->first();
@@ -79,7 +79,7 @@ class NewGame
         }
     }
 
-    protected function generatePositions(int $max, int $min = Board::MINIMUM_COORDINATE): array
+    private function generatePositions(int $max, int $min = Board::MINIMUM_COORDINATE): array
     {
         $width = $this->generator->numberBetween($min , $max);
         $height = $this->generator->numberBetween($min, $max);

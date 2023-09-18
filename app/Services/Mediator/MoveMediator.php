@@ -31,35 +31,38 @@ class MoveMediator implements Mediator
         $positionWidth = $this->characters->getPositionWidth();
 
         //TODO: Тоже можно отрефакторить
-        // вынести константы в переменные
         foreach ($datas as $data) {
             if ($event == MoveService::MOVE_UP) {
-                $newPosition = $positionHeight - 1;
-                if ($data['height'] == $positionHeight - 1 && $data['width'] == $positionWidth || $positionHeight - 1 <= 0) {
+                $newPosition = $positionHeight - Board::MINIMUM_COORDINATE;
+                if ($data['height'] == $positionHeight - Board::MINIMUM_COORDINATE && $data['width'] == $positionWidth
+                    || $positionHeight - Board::MINIMUM_COORDINATE <= 0) {
                     $event = MoveService::MOVE_RIGHT;
                     $this->getLog($event);
                 }
             }
 
             if ($event == MoveService::MOVE_DOWN) {
-                $newPosition = $positionHeight + 1;
-                if ($data['height'] == $positionHeight + 1 && $data['width'] == $positionWidth || $positionHeight + 1 >= Board::HEIGHT) {
+                $newPosition = $positionHeight + Board::MINIMUM_COORDINATE;
+                if ($data['height'] == $positionHeight + Board::MINIMUM_COORDINATE && $data['width'] == $positionWidth
+                    || $positionHeight + Board::MINIMUM_COORDINATE >= Board::HEIGHT) {
                     $event = MoveService::MOVE_LEFT;
                     $this->getLog($event);
                 }
             }
 
             if ($event == MoveService::MOVE_LEFT) {
-                $newPosition = $positionWidth - 1;
-                if ($data['width'] == $positionWidth - 1 && $data['height'] == $positionHeight || $positionWidth - 1 <= 0) {
+                $newPosition = $positionWidth - Board::MINIMUM_COORDINATE;
+                if ($data['width'] == $positionWidth - Board::MINIMUM_COORDINATE && $data['height'] == $positionHeight
+                    || $positionWidth - Board::MINIMUM_COORDINATE <= 0) {
                     $event = MoveService::MOVE_UP;
                     $this->getLog($event);
                 }
             }
 
             if ($event == MoveService::MOVE_RIGHT) {
-                $newPosition = $positionWidth + 1;
-                if ($data['width'] == $positionWidth + 1 && $data['height'] == $positionHeight || $positionWidth + 1 >= Board::WIDTH) {
+                $newPosition = $positionWidth + Board::MINIMUM_COORDINATE;
+                if ($data['width'] == $positionWidth + Board::MINIMUM_COORDINATE && $data['height'] == $positionHeight
+                    || $positionWidth + Board::MINIMUM_COORDINATE >= Board::WIDTH) {
                     $event = MoveService::MOVE_DOWN;
                     $this->getLog($event);
                 }

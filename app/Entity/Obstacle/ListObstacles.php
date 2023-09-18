@@ -42,7 +42,7 @@ class ListObstacles
         return $this;
     }
 
-    public function getPositions($moveMediator, $command)
+    public function getCommand($moveMediator, $command)
     {
         $listObstacles = $this->getObstacles();
         $boardPositions = [];
@@ -56,5 +56,10 @@ class ListObstacles
         $this->setMediator($moveMediator);
 
         return $this->mediator->notify($this, $command, $boardPositions);
+    }
+
+    private function getObstaclePositions()
+    {
+
     }
 }

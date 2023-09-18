@@ -71,7 +71,7 @@ class ListMonsters
 
         if (in_array($monsterCommand, Characters::MOVE_COMMAND)){
             $moveMediator = new MoveMediator($monster);
-            $monsterCommand = ListObstacles::getInstance()->getPositions($moveMediator, $monsterCommand);
+            $monsterCommand = ListObstacles::getInstance()->getCommand($moveMediator, $monsterCommand);
         }
 
         return $monsterCommand;

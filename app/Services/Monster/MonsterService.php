@@ -5,6 +5,7 @@ namespace App\Services\Monster;
 use App\Entity\Monster\ListMonsters;
 use App\Entity\Monster\Monster;
 use App\Entity\Player\Player;
+use App\Services\Game\LogService;
 use App\Services\Mediator\ActionMediator;
 use App\Services\Mediator\StrategyMediator\StrategyMediator;
 use App\Services\Player\BattleService;
@@ -42,12 +43,14 @@ class MonsterService
 
     protected function move($command, $monster): void
     {
+        LogService::log('Монстр ' . $monster->getId() . " сходил $command");
         $command = MoveService::getMoveCommand($command, $monster);
         $command->execute();
     }
 
     protected function battle($command, $monster): void
     {
+        LogService::log('Монстр ' . $monster->getId() . " использовал $command");
         $command = BattleService::getBattleCommand($command, $monster, Player::getInstance());
         $command->execute();
     }

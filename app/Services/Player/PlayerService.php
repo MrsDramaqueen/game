@@ -36,8 +36,7 @@ class PlayerService
         GameService::index();
         $player = \App\Entity\Player\Player::getInstance();
         $moveMediator = new MoveMediator($player);
-        //TODO
-        $newCommand = ListObstacles::getInstance()->getPositions($moveMediator, $command);
+        $newCommand = ListObstacles::getInstance()->getCommand($moveMediator, $command);
         $this->{$action}($newCommand);
 
         (new MonsterService)->action();
@@ -75,17 +74,16 @@ class PlayerService
     private function getMonsterNearPlayer()
     {
         $player = \App\Entity\Player\Player::getInstance();
-        $monsters = \App\Entity\Monster\ListMonsters::getInstance()->getMonsters();
+        $monsters = ListMonsters::getInstance()->getMonsters();
 
-        //TODO: Подумать над логикой выбора противника, если под условие подойдет больше 1-го + переработать условие
+        //TODO: Подумать над логикой выбора противника, если под условие подойдет больше одного + переработать условие
         foreach ($monsters as $monster) {
             if (abs($monster->getPositionHeight() - $player->getPositionHeight()) == Characters::MIN_DIFF_CELL_FOR_DAMAGE
                 && abs($monster->getPositionWidth() == $player->getPositionWidth())
                 || (abs($monster->getPositionWidth() - $player->getPositionWidth()) == Characters::MIN_DIFF_CELL_FOR_DAMAGE)
-                && abs($monster->getPositionHeight() == $player->getPositionHeight())) {
+                && abs($monster->getPositionHeight() == $player->getPositionHeight()) && $monster->getHp() != 0) {
                 return $monster;
             }
-
         }
     }
 
