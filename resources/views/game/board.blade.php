@@ -71,3 +71,7 @@
     </div>
 @endforeach
 
+{{--<div class="row">
+    <?php echo file_get_contents('../storage/logs/game_logs') ?>
+</div>--}}
+

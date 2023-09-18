@@ -5,6 +5,7 @@ namespace App\Services\Monster;
 use App\Entity\Monster\ListMonsters;
 use App\Entity\Monster\Monster;
 use App\Entity\Player\Player;
+use App\Services\Mediator\ActionMediator;
 use App\Services\Mediator\StrategyMediator\StrategyMediator;
 use App\Services\Player\BattleService;
 use App\Services\Player\MoveService;
@@ -26,26 +27,23 @@ class MonsterService
             ->setMana($monster->getMana());
     }
 
-    public function action($action, $playerCommand, $monsterNearPlayer)
+    public function action(): void
     {
         $strategyMediator = new StrategyMediator(ListMonsters::getInstance());
+        $actionMediator = new ActionMediator(ListMonsters::getInstance());
         $monsters = ListMonsters::getInstance()->getMonsters();
 
         foreach ($monsters as $monster) {
-            //TODO: как-то выбрать будет монстр ходить или драться, пока хардкод
-            $action = 'move';
-            $monsterCommand = ListMonsters::getInstance()->doAction($strategyMediator, $monster);
+            $action = ListMonsters::getInstance()->getAction($actionMediator, $monster);
+            $monsterCommand = ListMonsters::getInstance()->doAction($strategyMediator, $monster, $action);
             $this->{$action}($monsterCommand, $monster);
         }
     }
 
     protected function move($command, $monster): void
     {
-        //$monsters = ListMonsters::getInstance()->getMonsters();
         $command = MoveService::getMoveCommand($command, $monster);
         $command->execute();
-
-
     }
 
     protected function battle($command, $monster): void

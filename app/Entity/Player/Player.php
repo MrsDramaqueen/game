@@ -253,4 +253,9 @@ class Player implements Characters
             LogService::log('Восстановление маны');
         }
     }
+
+    public function stay()
+    {
+        // TODO: Implement stay() method.
+    }
 }

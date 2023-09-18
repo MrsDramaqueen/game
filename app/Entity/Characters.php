@@ -4,13 +4,13 @@ namespace App\Entity;
 
 interface Characters
 {
+    const MOVE_TYPE_COMMAND = 'move';
+    const BATTLE_TYPE_COMMAND = 'battle';
     const LEFT_COMMAND = 'left';
     const RIGHT_COMMAND = 'right';
     const UP_COMMAND = 'up';
     const DOWN_COMMAND = 'down';
-
     const HIT_COMMAND = 'hit';
-
     const HILL_COMMAND = 'hill';
 
     const MOVE_COMMAND = [
@@ -31,4 +31,5 @@ interface Characters
     public function right();
     public function hit();
     public function hill();
+    public function stay();
 }

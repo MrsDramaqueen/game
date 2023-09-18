@@ -14,7 +14,7 @@ class Hit implements Command
 
     /**
      * @param Characters $characters
-     * @param $monster
+     * @param $enemyCharacters
      */
     public function __construct(Characters $characters, $enemyCharacters)
     {
@@ -25,15 +25,11 @@ class Hit implements Command
     public function execute()
     {
         $playerDamage = $this->characters->hit();
-        //dd(max($this->enemyCharacters->getHP() - $playerDamage, 0));
         $this->enemyCharacters->setHP(max($this->enemyCharacters->getHP() - $playerDamage, 0));
 
+        //TODO: Либо перенести в другое место, либо вообще убрать.
         if($this->enemyCharacters->getHP() == 0) {
             $this->enemyCharacters->setDamage(0);
         }
-
-        //TODO: вынести для противников отдельно?
-       /* $monsterDamage = $this->enemyCharacters->hit();
-        $this->characters->setHp(max($this->characters->getHP() - $monsterDamage, 0));*/
     }
 }

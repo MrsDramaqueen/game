@@ -219,6 +219,7 @@ class Monster implements Characters
     {
         //Можно использовать посредника для установления параметра хилла в зависимости от типа монстра
         //пока сделаю одну логику для всех
+        //TODO Установить переменные константы + баг - не вычитается мана у монстра
         if ($this->getHp() < self::MAX_HILL_HP && $this->getMana() > 0) {
             $this->setHp(min($this->getHp() + 10, 100));
             $this->setMana($this->getMana() - 10);
@@ -229,7 +230,11 @@ class Monster implements Characters
 
     public function doAction()
     {
-        //dd($this->strategy->doStrategyActions());
         return $this->strategy->doStrategyActions();
+    }
+
+    public function stay()
+    {
+        // TODO: Implement stay() method.
     }
 }

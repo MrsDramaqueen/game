@@ -38,17 +38,9 @@ class PlayerService
         $moveMediator = new MoveMediator($player);
         //TODO
         $newCommand = ListObstacles::getInstance()->getPositions($moveMediator, $command);
-
-        //TODO Продумать логику стратегий + Использовать стратегию с посредником
-        /*if ($this->getLowHP($player->getHp()) <= 10) {
-            $player->setDamage((new LowHPStrategy())->doDamage($player->getDamage()));
-        }*/
-
         $this->{$action}($newCommand);
 
-        $monsterNearPlayer = $this->getMonsterNearPlayer();
-
-        (new \App\Services\Monster\MonsterService)->action($action, $command, $monsterNearPlayer);
+        (new MonsterService)->action();
 
         $this->saveNewStatePlayer();
         $this->saveNewStateMonsters();
@@ -70,15 +62,11 @@ class PlayerService
         $command = MoveService::getMoveCommand($command, $player);
         $player->manaRecovery();
         $command->execute();
-
     }
 
-    //TODO: Сделать для монстров паттерн состояние, в зависимости от которого они выбирают команду или стратегию
-    // по состоянию с помощью посредника выбирается стратегия, а в стратегии - команда
     protected function battle($command): void
     {
         LogService::log("Игрок задействовал $command");
-
         $monsterNearPlayer = $this->getMonsterNearPlayer();
         $command = BattleService::getBattleCommand($command, \App\Entity\Player\Player::getInstance(), $monsterNearPlayer);
         $command->execute();
@@ -97,6 +85,7 @@ class PlayerService
                 && abs($monster->getPositionHeight() == $player->getPositionHeight())) {
                 return $monster;
             }
+
         }
     }
 
@@ -126,15 +115,14 @@ class PlayerService
         foreach ($monsters as $monster) {
             $monsterModel = Monster::query()->find($monster->getId());
 
-            $monsterModel->update([
-                'hp'=> $monster->getHp(),
-                'damage' => $monster->getDamage(),
-                'position_width' => $monster->getPositionWidth(),
-                'position_height' => $monster->getPositionHeight(),
-                'mana' => $monster->getDamage(),
-            ]);
+            $monsterModel
+                ->setHp($monster->getHp())
+                ->setDamage($monster->getDamage())
+                ->setPositionWidth($monster->getPositionWidth())
+                ->setPositionHeight($monster->getPositionHeight())
+                ->setMana($monster->getMana())
+                ->save();
         }
-
     }
 
     private function getLowHP($hp)

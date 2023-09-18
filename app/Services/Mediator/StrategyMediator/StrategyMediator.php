@@ -2,6 +2,7 @@
 
 namespace App\Services\Mediator\StrategyMediator;
 
+use App\Entity\Characters;
 use App\Entity\Monster\ListMonsters;
 use App\Models\Monster;
 use App\Services\Mediator\Mediator;
@@ -22,14 +23,18 @@ class StrategyMediator implements Mediator
         $this->monsters->setMediator($this);
     }
 
-    //TODO: Убрать перебор монстров в каждом методе, а то херня какая-то получается
     public function notify(object $sender, string $event, array $datas)
     {
         /** @var $sender \App\Entity\Monster\Monster */
 
+        //TODO: Убрать этот костыль, наверно развести команды удара и хилла
+        if ($event == Characters::BATTLE_TYPE_COMMAND && $sender->getHp() < 25) {
+            $event = Characters::HILL_COMMAND;
+        }
+
         $className = match ($event) {
-            Monster::BERSERK_STATE => FullHPStrategy::class,
-            Monster::HILLER_STATE => LowHPStrategy::class,
+            Characters::BATTLE_TYPE_COMMAND => FullHPStrategy::class,
+            Characters::HILL_COMMAND => LowHPStrategy::class,
             default => DefaultStrategy::class,
         };
         $sender->setStrategy(new $className());

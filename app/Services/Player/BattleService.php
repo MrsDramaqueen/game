@@ -21,7 +21,6 @@ class BattleService
             self::BATTLE_ACTION_HILL => new Hill($characters),
         ];
 
-        //dd($command);
         return $cart[$command];
     }
 }

@@ -30,10 +30,10 @@ class MoveMediator implements Mediator
         $positionWidth = $this->characters->getPositionWidth();
 
         //TODO: Тоже можно отрефакторить
+        // вынести константы в переменные
         foreach ($datas as $data) {
             if ($event == MoveService::MOVE_UP) {
                 $newPosition = $positionHeight - 1;
-                //dd($data['height'] == $positionHeight - 1 && $data['width'] == $positionWidth || $positionHeight - 1 <= 0);
                 if ($data['height'] == $positionHeight - 1 && $data['width'] == $positionWidth || $positionHeight - 1 <= 0) {
                     $event = MoveService::MOVE_RIGHT;
                     $this->getLog($event);
@@ -65,7 +65,6 @@ class MoveMediator implements Mediator
             }
         }
 
-        //dd($event);
         return $event;
     }
 

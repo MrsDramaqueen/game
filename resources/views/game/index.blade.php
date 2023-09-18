@@ -19,7 +19,7 @@
                 </button>
                 <button data-action="battle" name="hit" class="btn btn-danger button-control" type="button">Удар
                 </button>
-                <button data-action="battle" name="hill" class="btn btn-success button-control" type="button">Хилл
+                <button data-action="battle" name="hill" class="btn btn-success button-control" type="button"{{--{{ $player->getMana() == 0 ? 'disabled' : '' }}--}}>Хилл
                 </button>
             </div>
         </div>

@@ -8,7 +8,7 @@ use App\Services\Mediator\Mediator;
 use App\Services\Mediator\MoveMediator;
 use App\Traits\Singleton;
 
-class ListMonsters implements Characters
+class ListMonsters
 {
     use Singleton;
 
@@ -52,51 +52,15 @@ class ListMonsters implements Characters
         return $this;
     }
 
-    public function hit()
+    public function getAction($actionMediator, $monster)
     {
-        foreach ($this->getMonsters() as $monster) {
-            $monster->hit();
-        }
-
-    }
-
-    public function up()
-    {
-        foreach ($this->getMonsters() as $monster) {
-            $monster->up();
-        }
-
-    }
-
-    public function down()
-    {
-        foreach ($this->getMonsters() as $monster) {
-           $monster->down();
-        }
-
-    }
-
-    public function left(): void
-    {
-        foreach ($this->getMonsters() as $monster) {
-            $monster->left();
-        }
-    }
-
-    public function right()
-    {
-        foreach ($this->getMonsters() as $monster) {
-            $monster->right();
-        }
-    }
-
-    public function hill()
-    {
-        // TODO: Implement hill() method.
+        $state = '';
+        $this->setMediator($actionMediator);
+        return $this->mediator->notify($monster, $state, $this->getMonsters());
     }
 
     //TODO: От состояния в посреднике будет выбираться стратегия, в которой будут выполняться команды
-    public function doAction($strategyMediator, $monster): string
+    public function doAction($strategyMediator, $monster, $action): string
     {
         $state = '';
         $listMonsters = $this->getMonsters();
@@ -104,10 +68,10 @@ class ListMonsters implements Characters
         //TODO: Добавить state для монстра
         //$state = $monster->getState();
         $this->setMediator($strategyMediator);
-        $monsterCommand = $this->mediator->notify($monster, $state, $listMonsters);
+        $monsterCommand = $this->mediator->notify($monster, $action, $listMonsters);
+        //dd($monster);
 
         if (in_array($monsterCommand, Characters::MOVE_COMMAND)){
-            //$monsterCommand = 'down';
             $moveMediator = new MoveMediator($monster);
             $monsterCommand = ListObstacles::getInstance()->getPositions($moveMediator, $monsterCommand);
         }
