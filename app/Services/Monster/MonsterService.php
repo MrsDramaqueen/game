@@ -3,7 +3,8 @@
 namespace App\Services\Monster;
 
 use App\Entity\Monster\ListMonsters;
-use App\Entity\Monster\Monster;
+use \App\Models\Monster;
+use App\Entity\Monster\Monster as MonsterCharacter;
 use App\Entity\Player\Player;
 use App\Services\Game\LogService;
 use App\Services\Mediator\ActionMediator;
@@ -13,11 +14,8 @@ use App\Services\Player\MoveService;
 
 class MonsterService
 {
-    public static function setMonster(\App\Models\Monster $monster): Monster
+    public static function setMonster(Monster $monster): Monster
     {
-        $positionWidth = rand(3, 8);
-        $positionHeight = rand(3, 8);
-
         return (new Monster())
             ->setId($monster->getId())
             ->setHp($monster->getHp())
@@ -41,14 +39,14 @@ class MonsterService
         }
     }
 
-    protected function move(string $command, Monster $monster): void
+    protected function move(string $command, MonsterCharacter $monster): void
     {
         LogService::log('Монстр ' . $monster->getId() . " сходил $command");
         $command = MoveService::getMoveCommand($command, $monster);
         $command->execute();
     }
 
-    protected function battle(string $command, Monster $monster): void
+    protected function battle(string $command, MonsterCharacter $monster): void
     {
         LogService::log('Монстр ' . $monster->getId() . " использовал $command");
         $command = BattleService::getBattleCommand($command, $monster, Player::getInstance());

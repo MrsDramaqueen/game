@@ -12,12 +12,14 @@ use App\Services\Game\GameService;
 use App\Services\Game\LogService;
 use App\Services\Mediator\MoveMediator;
 use App\Services\Monster\MonsterService;
+use \App\Entity\Player\Player as PlayerCharacter;
+
 //TODO: Навести порядок
 class PlayerService
 {
     public static function setPlayer(Player $player): void
     {
-        \App\Entity\Player\Player::getInstance()
+        PlayerCharacter::getInstance()
             ->setHp($player->getHp())
             ->setDamage($player->getDamage())
             ->setLevel($player->getLevel())
@@ -34,7 +36,7 @@ class PlayerService
     public function action(string $action, string $command): string
     {
         GameService::index();
-        $player = \App\Entity\Player\Player::getInstance();
+        $player = PlayerCharacter::getInstance();
         $moveMediator = new MoveMediator($player);
         $newCommand = ListObstacles::getInstance()->getCommand($moveMediator, $command);
         $this->{$action}($newCommand);
@@ -56,7 +58,7 @@ class PlayerService
      */
     protected function move(string $command): void
     {
-        $player = \App\Entity\Player\Player::getInstance();
+        $player = PlayerCharacter::getInstance();
         LogService::log("Player went $command");
         $command = MoveService::getMoveCommand($command, $player);
         $player->manaRecovery();
@@ -67,13 +69,13 @@ class PlayerService
     {
         LogService::log("Игрок задействовал $command");
         $monsterNearPlayer = $this->getMonsterNearPlayer();
-        $command = BattleService::getBattleCommand($command, \App\Entity\Player\Player::getInstance(), $monsterNearPlayer);
+        $command = BattleService::getBattleCommand($command, PlayerCharacter::getInstance(), $monsterNearPlayer);
         $command->execute();
     }
 
     private function getMonsterNearPlayer()
     {
-        $player = \App\Entity\Player\Player::getInstance();
+        $player = PlayerCharacter::getInstance();
         $monsters = ListMonsters::getInstance()->getMonsters();
 
         //TODO: Подумать над логикой выбора противника, если под условие подойдет больше одного + переработать условие
@@ -89,7 +91,7 @@ class PlayerService
 
     private function saveNewStatePlayer(): void
     {
-        $player = \App\Entity\Player\Player::getInstance();
+        $player = PlayerCharacter::getInstance();
 
         /** @var Player $playerModel */
         $playerModel = Player::query()->get()->first();

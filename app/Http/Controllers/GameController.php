@@ -15,7 +15,7 @@ use Illuminate\Foundation\Application;
 
 class GameController extends Controller
 {
-    public function menu()
+    public function menu(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('game/start');
     }
@@ -37,7 +37,7 @@ class GameController extends Controller
         ]);
     }
 
-    public static function getViewGameOver()
+    public static function getViewGameOver(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return \view('gameOver');
     }

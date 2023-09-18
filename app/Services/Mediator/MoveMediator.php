@@ -33,7 +33,6 @@ class MoveMediator implements Mediator
         //TODO: Тоже можно отрефакторить
         foreach ($datas as $data) {
             if ($event == MoveService::MOVE_UP) {
-                $newPosition = $positionHeight - Board::MINIMUM_COORDINATE;
                 if ($data['height'] == $positionHeight - Board::MINIMUM_COORDINATE && $data['width'] == $positionWidth
                     || $positionHeight - Board::MINIMUM_COORDINATE <= 0) {
                     $event = MoveService::MOVE_RIGHT;
@@ -42,7 +41,6 @@ class MoveMediator implements Mediator
             }
 
             if ($event == MoveService::MOVE_DOWN) {
-                $newPosition = $positionHeight + Board::MINIMUM_COORDINATE;
                 if ($data['height'] == $positionHeight + Board::MINIMUM_COORDINATE && $data['width'] == $positionWidth
                     || $positionHeight + Board::MINIMUM_COORDINATE >= Board::HEIGHT) {
                     $event = MoveService::MOVE_LEFT;
@@ -51,7 +49,6 @@ class MoveMediator implements Mediator
             }
 
             if ($event == MoveService::MOVE_LEFT) {
-                $newPosition = $positionWidth - Board::MINIMUM_COORDINATE;
                 if ($data['width'] == $positionWidth - Board::MINIMUM_COORDINATE && $data['height'] == $positionHeight
                     || $positionWidth - Board::MINIMUM_COORDINATE <= 0) {
                     $event = MoveService::MOVE_UP;
@@ -60,7 +57,6 @@ class MoveMediator implements Mediator
             }
 
             if ($event == MoveService::MOVE_RIGHT) {
-                $newPosition = $positionWidth + Board::MINIMUM_COORDINATE;
                 if ($data['width'] == $positionWidth + Board::MINIMUM_COORDINATE && $data['height'] == $positionHeight
                     || $positionWidth + Board::MINIMUM_COORDINATE >= Board::WIDTH) {
                     $event = MoveService::MOVE_DOWN;

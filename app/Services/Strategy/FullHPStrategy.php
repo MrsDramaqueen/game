@@ -3,10 +3,12 @@
 namespace App\Services\Strategy;
 
 
+use App\Models\Monster;
+
 class FullHPStrategy implements Strategy
 {
     public function doStrategyActions(): string
     {
-        return \App\Models\Monster::HIT_COMMAND;
+        return Monster::HIT_COMMAND;
     }
 }

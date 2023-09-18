@@ -4,7 +4,6 @@ namespace App\Services\Mediator\StrategyMediator;
 
 use App\Entity\Characters;
 use App\Entity\Monster\ListMonsters;
-use App\Models\Monster;
 use App\Services\Mediator\Mediator;
 use App\Services\Strategy\DefaultStrategy;
 use App\Services\Strategy\FullHPStrategy;
