@@ -70,6 +70,6 @@ class MoveMediator implements Mediator
 
     private function getLog($path)
     {
-        LogService::log("Игрок обошел препятствие сходив $path");
+        LogService::log($this->characters::class . ' ' . $this->characters->getId() . " обошел препятствие сходив $path");
     }
 }

@@ -5,6 +5,7 @@ namespace App\Entity\Monster;
 use App\Entity\Characters;
 use App\Services\Game\LogService;
 use App\Services\Mediator\Mediator;
+use App\Services\State\State;
 use App\Services\Strategy\Strategy;
 
 class Monster implements Characters
@@ -27,6 +28,8 @@ class Monster implements Characters
 
     protected ?Mediator $mediator;
 
+    protected ?State $state;
+
     const GOBLIN_TYPE_HP = 70;
 
     const CIRCLE_TYPE_HP = 45;
@@ -35,10 +38,11 @@ class Monster implements Characters
 
     const MAX_HILL_HP = 80;
 
-    public function __construct(Mediator $mediator = null, Strategy $strategy = null)
+    public function __construct(Mediator $mediator = null, Strategy $strategy = null, State $state = null)
     {
         $this->mediator = $mediator;
         $this->strategy = $strategy;
+        $this->state = $state;
     }
 
     public function setMediator(Mediator $mediator): void
@@ -57,11 +61,13 @@ class Monster implements Characters
     }
 
     /**
-     * @return Strategy|null
+     * @param State $state
+     * @return Monster
      */
-    public function getStrategy(): ?Strategy
+    public function setState(State $state): Monster
     {
-        return $this->strategy;
+        $this->state = $state;
+        return $this;
     }
 
     /**
@@ -236,5 +242,22 @@ class Monster implements Characters
     public function stay()
     {
         // TODO: Implement stay() method.
+    }
+
+    public function goNextState(State $state)
+    {
+        LogService::log('Монстр ' . $this->getType() . ' изменил свое состояние на ' . get_class($state));
+        $this->state = $state;
+        $this->state->setCharacter($this);
+    }
+
+    public function getNewDamage()
+    {
+        $this->setDamage($this->state->impact($this->getDamage()));
+    }
+
+    public function getNewHp()
+    {
+        $this->setHp($this->state->health($this->getHp()));
     }
 }

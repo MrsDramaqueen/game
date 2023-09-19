@@ -2,16 +2,18 @@
 
 namespace App\Services\State;
 
+use App\Entity\Characters;
+
 abstract class State
 {
-    protected $player;
+    protected Characters $characters;
 
     /**
-     * @param $player
+     * @param Characters $characters
      */
-    public function __construct($player)
+    public function setCharacter(Characters $characters): void
     {
-        $this->player = $player;
+        $this->characters = $characters;
     }
 
     abstract public function impact(int $damage);

@@ -26,6 +26,8 @@ class Player implements Characters
 
     protected int $positionHeight;
 
+    public int $id;
+
     protected int $mana;
 
     protected ?Mediator $mediator;
@@ -46,6 +48,24 @@ class Player implements Characters
     public function setStrategy(Strategy $strategy): void
     {
         $this->strategy = $strategy;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return Player
+     */
+    public function setId(int $id): Player
+    {
+        $this->id = $id;
+        return $this;
     }
 
     /**

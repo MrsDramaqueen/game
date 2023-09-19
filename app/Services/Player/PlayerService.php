@@ -20,6 +20,7 @@ class PlayerService
     public static function setPlayer(Player $player): void
     {
         PlayerCharacter::getInstance()
+            ->setId($player->getId())
             ->setHp($player->getHp())
             ->setDamage($player->getDamage())
             ->setLevel($player->getLevel())

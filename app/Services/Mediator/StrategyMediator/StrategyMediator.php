@@ -5,6 +5,7 @@ namespace App\Services\Mediator\StrategyMediator;
 use App\Entity\Characters;
 use App\Entity\Monster\ListMonsters;
 use App\Services\Mediator\Mediator;
+use App\Services\State\Berserk;
 use App\Services\Strategy\DefaultStrategy;
 use App\Services\Strategy\FullHPStrategy;
 use App\Services\Strategy\LowHPStrategy;
@@ -28,6 +29,11 @@ class StrategyMediator implements Mediator
 
         //TODO: Убрать этот костыль, наверно развести команды удара и хилла
         if ($event == Characters::BATTLE_TYPE_COMMAND && $sender->getHp() < 25) {
+            $sender->goNextState(new Berserk());
+            //$sender->getNewDamage();
+            $sender->getNewHp();
+            //будет когда уберется костыль
+            //$event = array_rand([Characters::HILL_COMMAND, array_rand(Characters::MOVE_COMMAND)]);
             $event = Characters::HILL_COMMAND;
         }
 
