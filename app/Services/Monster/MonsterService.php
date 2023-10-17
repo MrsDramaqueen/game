@@ -3,6 +3,7 @@
 namespace App\Services\Monster;
 
 use App\Entity\Monster\ListMonsters;
+use App\Models\BoardPosition;
 use \App\Models\Monster;
 use App\Entity\Monster\Monster as MonsterCharacter;
 use App\Entity\Player\Player;
@@ -16,13 +17,21 @@ class MonsterService
 {
     public static function setMonster(Monster $monster): MonsterCharacter
     {
+        $monsterBoardPositions = (new BoardPosition())
+            ->setEntityId($monster->getId())
+            ->setEntityType(ENTITY_TYPE_MONSTERS)
+            ->setHeightPosition($monster->getPositionHeight())
+            ->setWidthPosition($monster->getPositionWidth());
+
+        $monsterBoardPositions->save();
+
         return (new MonsterCharacter())
             ->setId($monster->getId())
             ->setHp($monster->getHp())
             ->setDamage($monster->getDamage())
             ->setType($monster->getType())
-            ->setPositionWidth($monster->getPositionWidth())
-            ->setPositionHeight($monster->getPositionHeight())
+            ->setPositionWidth($monsterBoardPositions->getHeightPosition())
+            ->setPositionHeight($monsterBoardPositions->getWidthPosition())
             ->setMana($monster->getMana());
     }
 

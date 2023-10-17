@@ -4,12 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
+ * App\Models\Obstacle
+ *
  * @property int $id
  * @property string $type
  * @property int $position_width
  * @property int $position_height
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Obstacle newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Obstacle newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Obstacle query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Obstacle whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Obstacle whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Obstacle wherePositionHeight($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Obstacle wherePositionWidth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Obstacle whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Obstacle whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Obstacle extends Model
 {
@@ -23,6 +38,11 @@ class Obstacle extends Model
         self::STONE_TYPE => 'stone',
         self::FIRE_TYPE => 'fire',
     ];
+
+    public function boardPosition(): MorphOne
+    {
+        return $this->morphOne(BoardPosition::class, 'boardPositionable');
+    }
 
     /**
      * @return int

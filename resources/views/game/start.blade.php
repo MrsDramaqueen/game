@@ -3,6 +3,7 @@
 @section('content')
     <div class="menu main-menu action-menu text-center">
         <p>Добро пожаловать!</p>
-        <button name="left" class="btn btn-primary" data-action="start" type="button">Начать</button>
+        <button name="game" class="btn btn-primary" data-action="start" type="button">Начать обычную игру</button>
+        <button name="survive" class="btn btn-primary" data-action="start" type="button">Начать игру на выживание</button>
     </div>
 @endsection

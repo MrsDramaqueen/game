@@ -4,8 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
+ * App\Models\Player
+ *
  * @property int $id
  * @property int $hp
  * @property int $level
@@ -15,6 +18,23 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $position_width
  * @property int $position_height
  * @property int $mana
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Player newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Player newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Player query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereDamage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereExp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereHp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereMana($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player wherePositionHeight($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player wherePositionWidth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Player extends Model
 {
@@ -28,6 +48,12 @@ class Player extends Model
     const MIN_MANA = 0;
     const HEIGHT_DEFAULT = 1;
     const WIDTH_DEFAULT = 1;
+
+    public function boardPosition(): MorphOne
+    {
+        return $this->morphOne(BoardPosition::class, 'board_positionable');
+    }
+
     /**
      * @return int
      */

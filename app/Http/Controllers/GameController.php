@@ -6,12 +6,14 @@ use App\Entity\Board\Board;
 use App\Entity\Monster\ListMonsters;
 use App\Entity\Obstacle\ListObstacles;
 use App\Entity\Player\Player;
+use App\Http\Requests\MoveRequest;
 use App\Services\Game\GameService;
 use App\Services\Game\LogService;
 use App\Services\Game\NewGame;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
@@ -35,6 +37,12 @@ class GameController extends Controller
             'monsters' => $monsters,
             'obstacles' => $obstacles,
         ]);
+    }
+
+    public function startSurvive(MoveRequest $request)
+    {
+        dd($request);
+        //Здесь сделать игру с бесконечной генерацией противников
     }
 
     public static function getViewGameOver(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application

@@ -4,8 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
+ * App\Models\Monster
+ *
  * @property int $id
  * @property string $type
  * @property int $hp
@@ -13,6 +16,21 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $position_width
  * @property int $position_height
  * @property int $mana
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Monster newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Monster newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Monster query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Monster whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Monster whereDamage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Monster whereHp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Monster whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Monster whereMana($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Monster wherePositionHeight($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Monster wherePositionWidth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Monster whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Monster whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Monster extends Model
 {
@@ -39,6 +57,12 @@ class Monster extends Model
     const MONSTER_HP = 100;
     const MONSTER_DAMAGE = 20;
     const MONSTER_MANA = 50;
+
+    public function boardPosition(): MorphOne
+    {
+        return $this->morphOne(BoardPosition::class, 'board_positionable');
+    }
+
     /**
      * @return int
      */
