@@ -3,7 +3,15 @@
 @section('content')
     <div class="menu main-menu action-menu text-center">
         <p>Добро пожаловать!</p>
-        <button name="game" class="btn btn-primary" data-action="start" type="button">Начать обычную игру</button>
-        <button name="survive" class="btn btn-primary" data-action="start" type="button">Начать игру на выживание</button>
+        <form action="game" method="get">
+            <p><label>
+                    <select size="3" name="game[]">
+                            <option disabled>Выберите режим игры</option>
+                            <option value="just">Начать обычную игру</option>
+                            <option value="survive">Начать игру на выживание</option>
+                    </select>
+                </label></p>
+            <p><input type="submit" value="Начать игру"></p>
+        </form>
     </div>
 @endsection

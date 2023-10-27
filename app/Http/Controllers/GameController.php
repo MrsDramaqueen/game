@@ -24,6 +24,9 @@ class GameController extends Controller
 
     public static function start(NewGame $newGame, GameService $gameService): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
+        $requestUri = \request()->getRequestUri();
+        $gameMode = str_contains($requestUri, GAME_MODE_SURVIVE);
+
         $player = Player::getInstance();
         $board = Board::getInstance();
         $monsters = ListMonsters::getInstance()->getMonsters();
@@ -37,12 +40,6 @@ class GameController extends Controller
             'monsters' => $monsters,
             'obstacles' => $obstacles,
         ]);
-    }
-
-    public function startSurvive(MoveRequest $request)
-    {
-        dd($request);
-        //Здесь сделать игру с бесконечной генерацией противников
     }
 
     public static function getViewGameOver(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
