@@ -25,7 +25,7 @@
                                 @endphp
                             @endif
                             @foreach($monsters as $monster)
-                                @if($monster->getPositionWidth() == $j && $monster->getPositionHeight() == $i)
+                                @if($monster?->getPositionWidth() == $j && $monster?->getPositionHeight() == $i)
                                     @php
                                         $class = 'monster';
                                         if ($monster->getType() == \App\Models\Monster::GOBLIN_TYPE) {
@@ -37,7 +37,7 @@
                                 @endif
                             @endforeach
                             @foreach($obstacles as $obstacle)
-                                @if($obstacle->getPositionWidth() == $j && $obstacle->getPositionHeight() == $i)
+                                @if($obstacle?->getPositionWidth() == $j && $obstacle?->getPositionHeight() == $i)
                                     @php
                                         $class = '$obstacle';
                                         if ($obstacle->getType() == \App\Models\Obstacle::STONE_TYPE) {
@@ -64,10 +64,10 @@
 
 @foreach($monsters as $monster)
     <div class="player-information text-left">
-        <player-info class="player-info"><img src="/web/image/health.png" alt="u">HP: {{$monster->getHp()}}</player-info                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              >
-        <p class="player-info"><img src="/web/image/sword.jpg" alt="u">Damage: {{$monster->getDamage()}}</p>
-        <p class="player-info">Fraction: {{$monster->getType()}}</p>
-        <p class="player-info"><img src="/web/image/mana.png" alt="u">Mana: {{$monster->getMana()}}</p>
+        <player-info class="player-info"><img src="/web/image/health.png" alt="u">HP: {{$monster?->getHp()}}</player-info                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              >
+        <p class="player-info"><img src="/web/image/sword.jpg" alt="u">Damage: {{$monster?->getDamage()}}</p>
+        <p class="player-info">Fraction: {{$monster?->getType()}}</p>
+        <p class="player-info"><img src="/web/image/mana.png" alt="u">Mana: {{$monster?->getMana()}}</p>
     </div>
 @endforeach
 

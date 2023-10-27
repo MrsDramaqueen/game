@@ -7,7 +7,7 @@
             <p><label>
                     <select size="3" name="game[]">
                             <option disabled>Выберите режим игры</option>
-                            <option value="just">Начать обычную игру</option>
+                            <option value="normal">Начать обычную игру</option>
                             <option value="survive">Начать игру на выживание</option>
                     </select>
                 </label></p>

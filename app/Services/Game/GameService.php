@@ -2,8 +2,10 @@
 
 namespace App\Services\Game;
 
+use App\Entity\Game\GameEntity;
 use App\Entity\Monster\ListMonsters;
 use App\Entity\Obstacle\ListObstacles;
+use App\Jobs\Monster\NewMonster;
 use App\Models\Board;
 use App\Models\Monster;
 use App\Models\Obstacle;
@@ -18,6 +20,7 @@ class GameService
 {
     public function __construct()
     {
+        $this->getMode();
         $this->getPlayer();
         $this->getBoard();
         $this->getMonsters();
@@ -30,6 +33,15 @@ class GameService
         PlayerService::setPlayer($player);
     }
 
+    private function getMode(): string
+    {
+        $requestUri = \request()->getRequestUri();
+        $mode = str_contains($requestUri, GAME_MODE_SURVIVE) ? GAME_MODE_SURVIVE : GAME_MODE_NORMAL;
+        $gameEntity = (new GameEntity())->setGameMode($mode);
+
+        return $gameEntity->getGameMode();
+    }
+
     private function getBoard(): void
     {
         $board = Board::query()->get()->first();
@@ -37,7 +49,7 @@ class GameService
 
     }
 
-    private function getMonsters(): void
+    public function getMonsters(): void
     {
         $monsters = Monster::query()->get()->map(function (Monster $monster) {
             return MonsterService::setMonster($monster);

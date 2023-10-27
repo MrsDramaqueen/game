@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Entity\Board\Board;
+use App\Entity\Game\GameEntity;
 use App\Entity\Monster\ListMonsters;
 use App\Entity\Obstacle\ListObstacles;
 use App\Entity\Player\Player;
 use App\Http\Requests\MoveRequest;
+use App\Jobs\Monster\NewMonster;
+use App\Models\Monster;
 use App\Services\Game\GameService;
 use App\Services\Game\LogService;
 use App\Services\Game\NewGame;
@@ -25,8 +28,13 @@ class GameController extends Controller
     public static function start(NewGame $newGame, GameService $gameService): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
         $requestUri = \request()->getRequestUri();
-        $gameMode = str_contains($requestUri, GAME_MODE_SURVIVE);
-
+        $mode = str_contains($requestUri, GAME_MODE_SURVIVE) ? GAME_MODE_SURVIVE : GAME_MODE_NORMAL;
+        $gameEntity = (new GameEntity())->setGameMode($mode);
+        $gameMode = $gameEntity->getGameMode();
+        if ($gameMode == GAME_MODE_SURVIVE) {
+            $monster = Monster::query()->first();
+            NewMonster::dispatch($monster)->delay(60);
+        }
         $player = Player::getInstance();
         $board = Board::getInstance();
         $monsters = ListMonsters::getInstance()->getMonsters();
