@@ -3,6 +3,7 @@
 namespace App\Services\Game;
 
 use App\Models\Board;
+use App\Models\BoardPosition;
 use App\Models\Monster;
 use App\Models\Obstacle;
 use App\Models\Player;
@@ -22,15 +23,18 @@ class NewGame
 
     private function generatePlayer(): void
     {
-        (new Player())
+        $player = (new Player())
             ->setHp(Player::HP)
             ->setExp(Player::EXP)
             ->setDamage(Player::DAMAGE)
             ->setLevel(Player::LEVEL)
             ->setPositionHeight(Player::HEIGHT_DEFAULT)
             ->setPositionWidth(Player::WIDTH_DEFAULT)
-            ->setMana(Player::MAX_MANA)
-            ->save();
+            ->setMana(Player::MAX_MANA);
+
+        $this->setEntityBoardPositions($player->getId(), ENTITY_TYPE_MONSTERS, Player::HEIGHT_DEFAULT, Player::WIDTH_DEFAULT);
+
+        $player->save();
     }
 
     private function generateBoard(): void
@@ -50,15 +54,17 @@ class NewGame
 
             [$width, $height] = $this->generatePositions($board->getWidth());
 
-            (new Monster())
+            $monster = (new Monster())
                 ->setType($this->generator->randomElement(Monster::MONSTER_TYPE))
                 ->setHp(Monster::MONSTER_HP)
                 ->setDamage(Monster::MONSTER_DAMAGE)
                 ->setMana(Monster::MONSTER_MANA)
                 ->setPositionWidth($width)
-                ->setPositionHeight($height)
-                ->save();
+                ->setPositionHeight($height);
 
+            $this->setEntityBoardPositions($monster->getId(), ENTITY_TYPE_MONSTERS, $height, $width);
+
+            $monster->save();
         }
     }
 
@@ -71,11 +77,14 @@ class NewGame
 
             [$width, $height] = $this->generatePositions($board->getWidth());
 
-            (new Obstacle())
+            $obstacle = (new Obstacle())
                 ->setType($this->generator->randomElement(Obstacle::OBSTACLE_TYPE))
                 ->setPositionWidth($width)
-                ->setPositionHeight($height)
-                ->save();
+                ->setPositionHeight($height);
+
+            $this->setEntityBoardPositions($obstacle->getId(), ENTITY_TYPE_OBSTACLES, $height, $width);
+
+            $obstacle->save();
         }
     }
 
@@ -93,4 +102,17 @@ class NewGame
         }
         return [$width, $height];
     }
+
+    private function setEntityBoardPositions(int $entityId, string $entityType, int $height, $width): void
+    {
+        (new BoardPosition())
+            ->setEntityId($entityId)
+            ->setEntityType($entityType)
+            ->setWidthPosition($width)
+            ->setHeightPosition($height)
+            ->save();
+    }
+
+
+
 }

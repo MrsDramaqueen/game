@@ -17,13 +17,13 @@ class MonsterService
 {
     public static function setMonster(Monster $monster): MonsterCharacter
     {
-        $monsterBoardPositions = (new BoardPosition())
+        $monsterBoardPositions = (new \App\Entity\Board\BoardPosition())
             ->setEntityId($monster->getId())
             ->setEntityType(ENTITY_TYPE_MONSTERS)
             ->setHeightPosition($monster->getPositionHeight())
             ->setWidthPosition($monster->getPositionWidth());
 
-        $monsterBoardPositions->save();
+        //$monsterBoardPositions->save();
 
         return (new MonsterCharacter())
             ->setId($monster->getId())
